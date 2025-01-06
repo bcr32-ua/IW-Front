@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page"> <!-- Root element -->
+  <div class="home-page">
     <NavBar />
     <div class="background">
       <div class="content">

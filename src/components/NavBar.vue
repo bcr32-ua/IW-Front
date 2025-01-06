@@ -4,7 +4,7 @@
     <ul class="menu">
       <li><a href="#">Nuestro Hotel</a></li>
       <li><a href="#">Habitaciones</a></li>
-      <li><a href="#">Instalaciones</a></li>
+      <li><a href="/instalaciones">Instalaciones</a></li>
       <li><a href="#">Temporadas</a></li>
       <li><a href="#">Contáctanos</a></li>
     </ul>
@@ -19,12 +19,12 @@
 export default {
   methods: {
     goHome() {
-      // Placeholder for redirecting to home
-      console.log('Redirect to home');
+      window.location.href = '/';
     },
   },
 };
 </script>
+
 
 <style scoped>
 .navbar {
