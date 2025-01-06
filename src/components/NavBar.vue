@@ -3,7 +3,7 @@
     <div class="logo" @click="goHome">京都 Kyoto</div>
     <ul class="menu">
       <li><a href="#">Nuestro Hotel</a></li>
-      <li><a href="#">Habitaciones</a></li>
+      <li><a href="/habitaciones">Habitaciones</a></li>
       <li><a href="/instalaciones">Instalaciones</a></li>
       <li><a href="#">Temporadas</a></li>
       <li><a href="#">Contáctanos</a></li>
