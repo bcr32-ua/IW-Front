@@ -28,7 +28,7 @@ export default {
   flex-direction: column;
 }
 .background {
-  background-image: url('https://via.placeholder.com/1920x1080'); /* Replace with actual image URL */
+  background-image: url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGt5b3RvfGVufDB8fDB8fHww');
   background-size: cover;
   background-position: center;
   flex: 1;
