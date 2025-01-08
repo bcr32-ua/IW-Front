@@ -10,7 +10,8 @@
     </ul>
     <div class="search-user">
       <input type="text" placeholder="Buscar..." class="search-bar" />
-      <i class="user-icon">👤</i>
+
+      <router-link to="/signin" class="user-icon">👤</router-link>
     </div>
   </nav>
 </template>
@@ -25,7 +26,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .navbar {
   display: flex;
@@ -35,39 +35,53 @@ export default {
   color: white;
   padding: 10px 20px;
 }
+
 .logo {
   font-size: 24px;
   cursor: pointer;
   font-weight: bold;
 }
+
 .menu {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 .menu li {
   margin: 0 15px;
 }
+
 .menu li a {
   color: white;
   text-decoration: none;
 }
+
 .menu li a:hover {
   text-decoration: underline;
 }
+
 .search-user {
   display: flex;
   align-items: center;
 }
+
 .search-bar {
   padding: 5px;
   border: none;
   border-radius: 3px;
   margin-right: 10px;
 }
+
 .user-icon {
   font-size: 20px;
   cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+.user-icon:hover {
+  text-decoration: underline;
 }
 </style>

@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import HomePage from '../components/HomePage.vue';
 import FacilitiesPage from '../components/FacilitiesPage.vue';
 import HabitacionesPage from "../components/HabitacionesPage.vue";
+import SignInPage from "../components/SignIn.vue";
 
 Vue.use(Router);
 
@@ -12,5 +13,7 @@ export default new Router({
         { path: '/', component: HomePage },
         { path: '/instalaciones', component: FacilitiesPage },
         { path: '/habitaciones', component: HabitacionesPage },
+        { path: '/signin', component: SignInPage },
+
     ],
 });
