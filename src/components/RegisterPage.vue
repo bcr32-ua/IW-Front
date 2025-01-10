@@ -5,29 +5,65 @@
       <div class="content">
         <div class="register-form">
           <h2>Regístrate</h2>
-          <form>
+          <form @submit.prevent="registerUser">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" placeholder="nombre@ejemplo.com" />
+              <input
+                  type="email"
+                  id="email"
+                  v-model="formData.email"
+                  placeholder="nombre@ejemplo.com"
+                  required
+              />
             </div>
             <div class="form-group">
               <label for="name">Nombre</label>
-              <input type="text" id="name" placeholder="Tu nombre" />
+              <input
+                  type="text"
+                  id="name"
+                  v-model="formData.name"
+                  placeholder="Tu nombre"
+                  required
+              />
             </div>
             <div class="form-group">
               <label for="lastname">Apellido</label>
-              <input type="text" id="lastname" placeholder="Tu apellido" />
+              <input
+                  type="text"
+                  id="lastname"
+                  v-model="formData.lastname"
+                  placeholder="Tu apellido"
+                  required
+              />
             </div>
             <div class="form-group">
               <label for="phone">Teléfono</label>
-              <input type="tel" id="phone" placeholder="123-456-7890" />
+              <input
+                  type="tel"
+                  id="phone"
+                  v-model="formData.phone"
+                  placeholder="123-456-7890"
+                  required
+              />
             </div>
             <div class="form-group">
               <label for="password">Contraseña</label>
-              <input type="password" id="password" placeholder="*********" />
+              <input
+                  type="password"
+                  id="password"
+                  v-model="formData.password"
+                  placeholder="*********"
+                  required
+              />
             </div>
             <button type="submit" class="register-button">Registrar</button>
           </form>
+          <div v-if="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
+          <div v-if="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
         </div>
       </div>
     </div>
@@ -35,16 +71,53 @@
 </template>
 
 <script>
+import axios from 'axios';
 import NavBar from '../components/NavBar.vue';
 
 export default {
   components: {
     NavBar,
   },
+  data() {
+    return {
+      formData: {
+        email: '',
+        name: '',
+        lastname: '',
+        phone: '',
+        password: '',
+      },
+      successMessage: '',
+      errorMessage: '',
+    };
+  },
+  methods: {
+    async registerUser() {
+      try {
+        const response = await axios.post('http://localhost:8080/user/register', this.formData);
+
+        this.successMessage = response.data;
+        this.errorMessage = '';
+        this.formData = {
+          email: '',
+          name: '',
+          lastname: '',
+          phone: '',
+          password: '',
+        };
+      } catch (error) {
+
+        this.successMessage = '';
+        this.errorMessage =
+            error.response?.data || 'An error occurred. Please try again.';
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+
 .register-page {
   height: 100vh;
   display: flex;
@@ -91,5 +164,13 @@ export default {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+.success-message {
+  margin-top: 15px;
+  color: #28a745;
+}
+.error-message {
+  margin-top: 15px;
+  color: #dc3545;
 }
 </style>
