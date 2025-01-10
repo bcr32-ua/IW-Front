@@ -1,25 +1,33 @@
 <template>
-  <div class="sign-in-page">
+  <div class="register-page">
     <NavBar />
     <div class="background">
       <div class="content">
-        <div class="sign-in-form">
-          <h2>Inicia sesión</h2>
+        <div class="register-form">
+          <h2>Regístrate</h2>
           <form>
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" id="email" placeholder="nombre@ejemplo.com" />
             </div>
             <div class="form-group">
-              <label for="password">Contraseña</label>
-              <input type="password" id="password" />
+              <label for="name">Nombre</label>
+              <input type="text" id="name" placeholder="Tu nombre" />
             </div>
-            <button type="submit" class="sign-in-button">Iniciar sesión</button>
+            <div class="form-group">
+              <label for="lastname">Apellido</label>
+              <input type="text" id="lastname" placeholder="Tu apellido" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Teléfono</label>
+              <input type="tel" id="phone" placeholder="123-456-7890" />
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" placeholder="*********" />
+            </div>
+            <button type="submit" class="register-button">Registrar</button>
           </form>
-          <div class="register-link">
-            <p>¿No tienes cuenta?</p>
-            <router-link to="/register" class="register-button">Regístrate</router-link>
-          </div>
         </div>
       </div>
     </div>
@@ -37,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-.sign-in-page {
+.register-page {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -58,7 +66,7 @@ export default {
   text-align: center;
   color: #fff;
 }
-.sign-in-form {
+.register-form {
   width: 300px;
 }
 .form-group {
@@ -75,22 +83,13 @@ export default {
   border: none;
   border-radius: 5px;
 }
-.sign-in-button {
+.register-button {
   width: 100%;
   padding: 10px;
   border: none;
   background-color: #f04e30;
   color: white;
   border-radius: 5px;
-  cursor: pointer;
-}
-.register-link {
-  margin-top: 15px;
-}
-.register-button {
-  background: none;
-  border: none;
-  color: #f04e30;
   cursor: pointer;
 }
 </style>
