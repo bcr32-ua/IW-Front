@@ -11,17 +11,58 @@
     <div class="search-user">
       <input type="text" placeholder="Buscar..." class="search-bar" />
 
-      <router-link to="/signin" class="user-icon">👤</router-link>
+      <div class="user-icon-wrapper">
+        <span @click="toggleDropdown" class="user-icon">👤</span>
+
+        <div v-if="showDropdown" class="dropdown-menu">
+          <template v-if="isLoggedIn">
+            <router-link to="#" class="dropdown-item">Mi cuenta</router-link>
+            <router-link to="#" class="dropdown-item">Mis Reservas</router-link>
+            <span class="dropdown-item" @click="logout">Cerrar sesión</span>
+          </template>
+          <template v-else>
+            <router-link to="/signin" class="dropdown-item">Logearse</router-link>
+            <router-link to="/register" class="dropdown-item">Registrar</router-link>
+          </template>
+        </div>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      showDropdown: false,
+      isLoggedIn: !!localStorage.getItem('userId'),
+    };
+  },
   methods: {
     goHome() {
       window.location.href = '/';
     },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    },
+    handleOutsideClick(event) {
+      const dropdown = this.$el.querySelector('.user-icon-wrapper');
+      if (dropdown && !dropdown.contains(event.target)) {
+        this.showDropdown = false;
+      }
+    },
+    logout() {
+      localStorage.removeItem('userId');
+      this.isLoggedIn = false;
+      this.showDropdown = false;
+      this.$router.push('/');
+    },
+  },
+  mounted() {
+    document.addEventListener('click', this.handleOutsideClick);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleOutsideClick);
   },
 };
 </script>
@@ -74,6 +115,10 @@ export default {
   margin-right: 10px;
 }
 
+.user-icon-wrapper {
+  position: relative;
+}
+
 .user-icon {
   font-size: 20px;
   cursor: pointer;
@@ -83,5 +128,29 @@ export default {
 
 .user-icon:hover {
   text-decoration: underline;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  color: #333;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  width: 150px;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
 }
 </style>

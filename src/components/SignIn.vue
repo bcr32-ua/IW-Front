@@ -5,17 +5,32 @@
       <div class="content">
         <div class="sign-in-form">
           <h2>Inicia sesión</h2>
-          <form>
+          <form @submit.prevent="loginUser">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" placeholder="nombre@ejemplo.com" />
+              <input
+                  type="email"
+                  id="email"
+                  v-model="formData.email"
+                  placeholder="nombre@ejemplo.com"
+                  required
+              />
             </div>
             <div class="form-group">
               <label for="password">Contraseña</label>
-              <input type="password" id="password" />
+              <input
+                  type="password"
+                  id="password"
+                  v-model="formData.password"
+                  placeholder="*********"
+                  required
+              />
             </div>
             <button type="submit" class="sign-in-button">Iniciar sesión</button>
           </form>
+          <div v-if="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
           <div class="register-link">
             <p>¿No tienes cuenta?</p>
             <router-link to="/register" class="register-button">Regístrate</router-link>
@@ -27,16 +42,42 @@
 </template>
 
 <script>
+import axios from 'axios';
 import NavBar from '../components/NavBar.vue';
 
 export default {
   components: {
     NavBar,
   },
+  data() {
+    return {
+      formData: {
+        email: '',
+        password: '',
+      },
+      errorMessage: '',
+    };
+  },
+  methods: {
+    async loginUser() {
+      try {
+        const response = await axios.post('http://localhost:8080/user/login', this.formData);
+
+        const userId = response.data;
+        localStorage.setItem('userId', userId);
+
+        this.$router.push('/');
+      } catch (error) {
+        this.errorMessage =
+            error.response?.data || 'Error: Unable to log in. Please try again.';
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+/* Existing styles */
 .sign-in-page {
   height: 100vh;
   display: flex;
@@ -92,5 +133,9 @@ export default {
   border: none;
   color: #f04e30;
   cursor: pointer;
+}
+.error-message {
+  margin-top: 10px;
+  color: #dc3545;
 }
 </style>
