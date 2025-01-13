@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     async getTemporadas() {
-        const response = await axios.get('http://iw-deployment-latest.onrender.com/season', {
+        const response = await axios.get('https://iw-deployment-latest.onrender.com/season', {
             withCredentials: false
         });
       console.log(response.data);
