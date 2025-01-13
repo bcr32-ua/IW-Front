@@ -11,6 +11,7 @@ import CrearUsuario from '../components/CrearUsuario.vue';
 import GestionRecepcion from '../components/GestionRecepcion.vue';
 import GestionHabitaciones from '../components/GestionHabitaciones.vue';
 import GestionTemporadas from '../components/GestionTemporadas.vue';
+import CrearTemporada from '../components/CrearTemporada.vue';
 
 
 Vue.use(Router);
@@ -29,6 +30,7 @@ export default new Router({
         { path: '/gestionRecepcion', component: GestionRecepcion },
         { path: '/gestionHabitaciones', component: GestionHabitaciones },
         { path: '/gestionTemporadas', component: GestionTemporadas },
+        { path: '/nuevaTemporada', component: CrearTemporada },
 
 
 
