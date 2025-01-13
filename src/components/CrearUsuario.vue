@@ -45,14 +45,14 @@
                     </div>
                     <div class="mt-4 mb-3 d-flex justify-content-center">
                         <button type="submit" class="btn btn-light">Registrar</button>
-                        <div v-if="errorMessage" class="alert alert-danger" role="alert">
-                            {{ errorMessage}}
-                        </div>
+                        
                     </div>
                     
                 </form>
             </div>
-
+            <div v-if="errorMessage" class="alert alert-danger" role="alert">
+                {{ errorMessage}}
+            </div>
         
         </div>    
     </div>

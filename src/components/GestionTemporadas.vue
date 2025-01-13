@@ -45,11 +45,29 @@
 <script>
 import NavBar from '../components/NavBar.vue';
 import MenuAdmin from '../components/MenuAdmin.vue';
+import axios from 'axios';
 
 export default {
   components: {
     NavBar,
     MenuAdmin,
+  },
+  data() {
+    return {
+        temporadas: []
+    }
+  },
+  mounted() {
+    this.getTemporadas();
+  },
+  methods: {
+    async getTemporadas() {
+        const response = await axios.get('http://iw-deployment-latest.onrender.com/season', {
+            withCredentials: false
+        });
+      console.log(response.data);
+      this.temporadas = response.data;
+    },
   }
 }
 
