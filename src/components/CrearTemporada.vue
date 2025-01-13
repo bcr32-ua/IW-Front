@@ -71,7 +71,16 @@ export default {
     methods: {
         async createTemporada() {
             try {
-                const response = await axios.post('http://iw-deployment-latest.onrender.com/season', this.formData);
+                console.log("--- ")
+                //const response = await axios.post('season', this.formData);
+                /*const baseUrl = import.meta.env.VITE_URL_BACK;
+                console.log("***")
+                console.log(import.meta.env.VITE_URL_BACK);
+                const response = await axios.post(`${baseUrl}/season`, this.formData);*/
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                const response = await axios.get();
+                
+                console.log(baseUrl);
                 console.log(response.data);
                 router.back();
 

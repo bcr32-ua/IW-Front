@@ -24,9 +24,9 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(temporada) in temporadas" :key="temporada.id">
-                                        <td>{{ temporada.nombre }}</td>
-                                        <td>{{ temporada.fechaInicio }}</td>
-                                        <td>{{ temporada.fechaFin }}</td>
+                                        <td>{{ temporada.type }}</td>
+                                        <td>{{ temporada.season_start }}</td>
+                                        <td>{{ temporada.season_end }}</td>
                                         <td>
                                             <button class="btn" @click="editTemporada(temporada.id)"><i class="bi bi-pencil-square"></i></button>
                                             <button class="btn" @click="deleteTemporada(temporada.id)"><i class="bi bi-trash"></i></button>
@@ -47,6 +47,7 @@ import NavBar from '../components/NavBar.vue';
 import MenuAdmin from '../components/MenuAdmin.vue';
 import axios from 'axios';
 
+
 export default {
   components: {
     NavBar,
@@ -62,9 +63,13 @@ export default {
   },
   methods: {
     async getTemporadas() {
-        const response = await axios.get('https://iw-deployment-latest.onrender.com/season', {
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+        const response = await axios.get(baseUrl+"/season", {
             withCredentials: false
         });
+        
+        
+        console.log("** ", baseUrl);
       console.log(response.data);
       this.temporadas = response.data;
     },
