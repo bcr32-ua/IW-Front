@@ -13,6 +13,7 @@ import GestionHabitaciones from '../components/GestionHabitaciones.vue';
 import GestionTemporadas from '../components/GestionTemporadas.vue';
 import CrearTemporada from '../components/CrearTemporada.vue';
 import PerfilRegistrado from "../components/PerfilRegistrado.vue";
+import EditarPerfil from '@/components/EditarPerfil.vue';
 
 Vue.use(Router);
 
@@ -32,6 +33,6 @@ export default new Router({
         { path: '/gestionTemporadas', component: GestionTemporadas },
         { path: '/nuevaTemporada', component: CrearTemporada },
         { path: '/perfilRegistrado', component: PerfilRegistrado},
-
+        { path: '/editarPerfil', component: EditarPerfil},
     ],
 });
