@@ -16,7 +16,7 @@
 
         <div v-if="showDropdown" class="dropdown-menu">
           <template v-if="isLoggedIn">
-            <router-link to="#" class="dropdown-item">Mi cuenta</router-link>
+            <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
             <router-link to="#" class="dropdown-item">Mis Reservas</router-link>
             <span class="dropdown-item" @click="logout">Cerrar sesión</span>
           </template>
