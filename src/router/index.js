@@ -18,6 +18,9 @@ import EditarTemporada from '../components/EditarTemporada.vue';
 import GestionServicios from '../components/GestionServicios.vue';
 import CrearServicio from '../components/CrearServicio.vue';
 import EditarServicio from '../components/EditarServicio.vue';
+import GestionReservas from '../components/GestionReservas.vue';
+import CrearReserva from '../components/CrearReserva.vue';
+import EditarReserva from '../components/EditarReserva.vue';
 
 
 Vue.use(Router);
@@ -42,7 +45,10 @@ export default new Router({
         { path: '/temporadas/editar/:id', component: EditarTemporada },
         { path: '/gestionServicios', component: GestionServicios },
         { path: '/nuevoServicio', component: CrearServicio },
-        {  path: '/servicios/editar/:id', component: EditarServicio },
+        { path: '/servicios/editar/:id', component: EditarServicio },
+        { path: '/gestionReservas', component: GestionReservas },
+        {  path: '/nuevaReserva', component: CrearReserva },
+        {  path: '/reservas/editar/:id', component: EditarReserva },
 
     ],
 });
