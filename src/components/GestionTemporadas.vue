@@ -17,6 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
+                                        <th>Multiplicador</th>
                                         <th>Fecha inicio</th>
                                         <th>Fecha fin</th>
                                         <th></th>
@@ -25,8 +26,9 @@
                                 <tbody>
                                     <tr v-for="(temporada) in temporadas" :key="temporada.id">
                                         <td>{{ temporada.type }}</td>
-                                        <td>{{ temporada.season_start }}</td>
-                                        <td>{{ temporada.season_end }}</td>
+                                        <td>{{ temporada.multiplier }}</td>
+                                        <td>{{ formatDate(temporada.season_start) }}</td>
+                                        <td>{{ formatDate(temporada.season_end) }}</td>
                                         <td>
                                             <button class="btn" @click="editTemporada(temporada.id)"><i class="bi bi-pencil-square"></i></button>
                                             <button class="btn" @click="deleteTemporada(temporada.id)"><i class="bi bi-trash"></i></button>
@@ -67,11 +69,21 @@ export default {
         const response = await axios.get(baseUrl+"/season", {
             withCredentials: false
         });
-        
-        
-        console.log("** ", baseUrl);
-      console.log(response.data);
-      this.temporadas = response.data;
+        console.log(response.data);
+        this.temporadas = response.data;
+    },
+    formatDate(date) {
+        return new Date(date).toLocaleDateString();
+    },
+    async editTemporada(id) {
+        this.$router.push(`/temporadas/editar/${id}`);
+    },
+    async deleteTemporada(id) {
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+        await axios.delete(baseUrl+"/season/"+id, {
+            withCredentials: false
+        });
+        this.getTemporadas();
     },
   }
 }
