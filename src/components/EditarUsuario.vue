@@ -7,7 +7,7 @@
             <div class="card text-bg-dark mt-4 px-3">
 
                 <h2 class="text-center mt-2">Editar usuario</h2>
-                <form @submit.prevent="createUser">
+                <form @submit.prevent="editUser">
                     <div class="row">
                         <div class="col">
                             
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="mt-4 mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-light">Registrar</button>
+                        <button type="submit" class="btn btn-light">Editar</button>
                         <div v-if="errorMessage" class="alert alert-danger" role="alert">
                             {{ errorMessage}}
                         </div>
@@ -60,6 +60,9 @@
 
 <script>
 import NavBar from '../components/NavBar.vue';
+import router from '@/router';
+import axios from 'axios';
+
 export default {
   components: {
     NavBar,
@@ -79,21 +82,30 @@ export default {
         };
     },
     mounted() {
-
-        console.log(this.$route.params.id);
-        this.getUsuario(this.$route.params.id);
+        this.getUsuario();
     },
     methods: {
-        async getUsuario(id) {
+        async getUsuario() {
             try {
-                /*const response = await axios.get(`http://localhost:3000/clientes/${dni}`);
-                this.formData = response.data; // rellena formulario*/
-                this.formData.id = id;
-                console.log('Usuario obtenido ', id);
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                const response = await axios.get(baseUrl+"/user/"+this.$route.params.id);
+                this.formData = response.data;
             } catch (error) {
                 console.error(error);
             }
         },
+        async editUser() {
+            try {
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                const response = await axios.put(baseUrl+"/user", this.formData);
+                console.log(response.data);
+                this.errorMessage = '';
+                router.back();
+            } catch (error) {
+                this.errorMessage =
+                    error.response?.data || 'An error occurred. Please try again.';
+            }
+        }
     },
 };
 </script>

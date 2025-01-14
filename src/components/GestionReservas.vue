@@ -10,28 +10,30 @@
                         </div>
                         <div class="col card text-bg-secondary">
                             <div class="d-flex justify-content-between align-items-center  mt-4">
-                                <h2>Gestión temporadas</h2>
-                                <a href="/nuevaTemporada" class="btn btn-outline-light">Añadir temporada</a>
+                                <h2>Gestión reservas</h2>
+                                <a href="/nuevaReserva" class="btn btn-outline-light">Añadir reserva</a>
                             </div>
                             <table class="table-secondary table table-striped mt-4">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Multiplicador</th>
-                                        <th>Fecha inicio</th>
-                                        <th>Fecha fin</th>
+                                        <th>Usuario</th>
+                                        <th>Habitacion</th>
+                                        <th>Fecha de entrada</th>
+                                        <th>Fecha de salida</th>
+                                        <th>Precio</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(temporada) in temporadas" :key="temporada.id">
-                                        <td>{{ temporada.type }}</td>
-                                        <td>{{ temporada.multiplier }}</td>
-                                        <td>{{ formatDate(temporada.season_start) }}</td>
-                                        <td>{{ formatDate(temporada.season_end) }}</td>
+                                    <tr v-for="(book) in books" :key="book.id">
+                                        <td>{{ book.user }}</td>
+                                        <td>{{ book.room }}</td>
+                                        <td>{{ formatDate(book.start_date) }}</td>
+                                        <td>{{ formatDate(book.end_date) }}</td>
+                                        <td>{{ book.total_price }}</td>
                                         <td>
-                                            <button class="btn" @click="editTemporada(temporada.id)"><i class="bi bi-pencil-square"></i></button>
-                                            <button class="btn" @click="deleteTemporada(temporada.id)"><i class="bi bi-trash"></i></button>
+                                            <button class="btn" @click="editReserva(book.id)"><i class="bi bi-pencil-square"></i></button>
+                                            <button class="btn" @click="deleteReserva(book.id)"><i class="bi bi-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -49,7 +51,6 @@ import NavBar from '../components/NavBar.vue';
 import MenuAdmin from '../components/MenuAdmin.vue';
 import axios from 'axios';
 
-
 export default {
   components: {
     NavBar,
@@ -57,35 +58,35 @@ export default {
   },
   data() {
     return {
-        temporadas: []
+        books: []
     }
   },
   mounted() {
-    this.getTemporadas();
+    this.getReservas();
   },
   methods: {
-    async getTemporadas() {
+    async getReservas() {
         const baseUrl = process.env.VUE_APP_URL_BACK;
-        const response = await axios.get(baseUrl+"/season", {
+        const response = await axios.get(baseUrl+"/booking", {
             withCredentials: false
         });
         console.log(response.data);
-        this.temporadas = response.data;
+        this.books = response.data;
     },
     formatDate(date) {
         return new Date(date).toLocaleDateString();
     },
-    async editTemporada(id) {
-        this.$router.push(`/temporadas/editar/${id}`);
+    async editReserva(id) {
+        this.$router.push(`/reservas/editar/${id}`);
     },
-    async deleteTemporada(id) {
-        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta habitación?');
+    async deleteReserva(id) {
+        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta reserva?');
         if (confirmation) {
             const baseUrl = process.env.VUE_APP_URL_BACK;
-            await axios.delete(baseUrl+"/season/"+id, {
+            await axios.delete(baseUrl+"/booking/"+id, {
                 withCredentials: false
             });
-            this.getTemporadas();
+            this.getReservas();
         }
         
     },

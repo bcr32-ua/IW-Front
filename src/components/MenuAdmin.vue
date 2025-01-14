@@ -5,6 +5,8 @@
             <a href="/gestionRecepcion" class="list-group-item list-group-item-action list-group-item-dark"><i class="bi bi-display"></i> Recepcion</a>
             <a href="/gestionHabitaciones" class="list-group-item list-group-item-action list-group-item-dark"><i class="bi bi-house"></i> Habitaciones</a>
             <a href="/gestionTemporadas" class="list-group-item list-group-item-action list-group-item-dark"><i class="bi bi-calendar"></i> Temporadas</a>
+            <a href="/gestionServicios" class="list-group-item list-group-item-action list-group-item-dark"><i class="bi bi-gift"></i> Servicios</a>
+            <a href="/gestionReservas" class="list-group-item list-group-item-action list-group-item-dark"><i class="bi bi-suitcase"></i> Reservas</a>
         </ul>
     </div>
 </template>

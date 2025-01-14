@@ -61,6 +61,8 @@
 <script>
 import router from '@/router';
 import NavBar from '../components/NavBar.vue';
+import axios from 'axios';
+
 export default {
   components: {
     NavBar,
@@ -81,10 +83,11 @@ export default {
     methods: {
         async createUser() {
             try {
-                /*const response = await axios.post('http://localhost:3000/clientes', this.formData);
-                console.log(response.data);*/
-                console.log('Usuario añadido', this.formData);
-                router.back();
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                const response = await axios.post(baseUrl+"/user/register", this.formData);
+                
+                console.log(response.data);
+                router.back();  
 
 
             } catch (error) {

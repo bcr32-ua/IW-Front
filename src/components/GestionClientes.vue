@@ -25,10 +25,10 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(cliente) in clientes" :key="cliente.id">
-                                    <td>{{ cliente.nombre }}</td>
-                                    <td>{{ cliente.apellido }}</td>
+                                    <td>{{ cliente.name }}</td>
+                                    <td>{{ cliente.lastname }}</td>
                                     <td>{{ cliente.email }}</td>
-                                    <td>{{ cliente.telefono }}</td>
+                                    <td>{{ cliente.phone }}</td>
                                     <td>
                                         <button class="btn" @click="editCliente(cliente.id)"><i class="bi bi-pencil-square"></i></button>
                                         <button class="btn" @click="deleteCliente(cliente.id)"><i class="bi bi-trash"></i></button>
@@ -48,6 +48,7 @@
 <script>
 import NavBar from '../components/NavBar.vue';
 import MenuAdmin from '../components/MenuAdmin.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -56,33 +57,23 @@ export default {
   },
   data() {
     return {
-      clientes: [{
-            id: 1,
-            nombre: 'Ivan',
-            apellido: 'Garcia',
-            email: 'ivan@ua.es',
-            telefono: '123456789',
-        },
-        {
-            id: 2,
-            nombre: 'Pepe',
-            apellido: 'Garcia',
-            email: 'pepe@ua.es',
-            telefono: '123456788',
-        }
-      ],
+      clientes: [],
     };
   },
   mounted () {
     this.getClientes();
-    console.log('Clientes obtenidos');
   },
   methods: {
     async getClientes() {
       try {
-        /*const response = await axios.get('http://localhost:3000/clientes');
-        this.clientes = response.data;*/
-        console.log('Clientes obtenidos');
+
+        // solo clientes
+
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+        const response = await axios.get(baseUrl+"/user", {
+            withCredentials: false
+        });
+        this.clientes = response.data;
       } catch (error) {
         console.error(error);
       }
@@ -90,13 +81,13 @@ export default {
     async deleteCliente(id) {
       try {
         const confirmation = confirm('¿Estás seguro de que quieres eliminar este cliente?');
-        if (!confirmation) {
-          return;
+        if (confirmation) {
+          const baseUrl = process.env.VUE_APP_URL_BACK;
+            await axios.delete(baseUrl+"/user/"+id, {
+                withCredentials: false
+            });
+            this.getClientes();
         }
-        /*const response = await axios.delete(`http://localhost:3000/clientes/${dni}`);
-        console.log(response);*/
-        this.clientes = this.clientes.filter((cliente) => cliente.id !== id);
-        console.log('Cliente eliminado ', id);
       } catch (error) {
         console.error(error);
       }
