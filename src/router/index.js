@@ -10,6 +10,8 @@ import EditarUsuario from '../components/EditarUsuario.vue';
 import CrearUsuario from '../components/CrearUsuario.vue';
 import GestionRecepcion from '../components/GestionRecepcion.vue';
 import GestionHabitaciones from '../components/GestionHabitaciones.vue';
+import CrearHabitacion from '../components/CrearHabitacion.vue';
+import EditarHabitacion from '../components/EditarHabitacion.vue';
 import GestionTemporadas from '../components/GestionTemporadas.vue';
 import CrearTemporada from '../components/CrearTemporada.vue';
 import EditarTemporada from '../components/EditarTemporada.vue';
@@ -30,6 +32,8 @@ export default new Router({
         { path: '/nuevoUsuario', component: CrearUsuario },
         { path: '/gestionRecepcion', component: GestionRecepcion },
         { path: '/gestionHabitaciones', component: GestionHabitaciones },
+        { path: '/nuevaHabitacion', component: CrearHabitacion },
+        { path: '/habitaciones/editar/:id', component: EditarHabitacion },
         { path: '/gestionTemporadas', component: GestionTemporadas },
         { path: '/nuevaTemporada', component: CrearTemporada },
         { path: '/temporadas/editar/:id', component: EditarTemporada },

@@ -11,7 +11,7 @@
               <div class="col card text-bg-secondary">
                   <div class="d-flex justify-content-between align-items-center mt-4">
                       <h2>Gestión habitaciones</h2>
-                      <a href="/nuevoUsuario" class="btn btn-outline-light">Añadir usuario</a>
+                      <a href="/nuevaHabitacion" class="btn btn-outline-light">Añadir habitacion</a>
                   </div>
                   <table class="table-secondary table table-striped mt-4">
                       <thead>
@@ -27,7 +27,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr v-for="(room) in rooms" :key="room.code">
+                          <tr v-for="(room) in rooms" :key="room.id">
                               <td>{{ room.code }}</td>
                               <td>{{ room.floor }}</td>
                               <td>{{ room.people }}</td>
@@ -43,10 +43,10 @@
                                   </button>
                               </td>
                               <td>
-                                  <button class="btn" @click="editRoom(room.code)">
+                                  <button class="btn" @click="editRoom(room.id)">
                                       <i class="bi bi-pencil-square"></i>
                                   </button>
-                                  <button class="btn" @click="deleteRoom(room.code)">
+                                  <button class="btn" @click="deleteRoom(room.id)">
                                       <i class="bi bi-trash"></i>
                                   </button>
                               </td>
@@ -63,6 +63,7 @@
 <script>
 import NavBar from '../components/NavBar.vue';
 import MenuAdmin from '../components/MenuAdmin.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -71,30 +72,21 @@ export default {
   },
   data() {
     return {
-      rooms: [
-        {
-          code: '101',
-          floor: '1',
-          people: '2',
-          type: 'Doble',
-          base_price: '50',
-          description: 'Habitación doble con cama de matrimonio',
-          active: true,
-        },
-        {
-          code: '102',
-          floor: '1',
-          people: '1',
-          type: 'Individual',
-          base_price: '30',
-          description: 'Habitación individual con cama de matrimonio',
-          active: false,
-        },
-        
-      ],
+      rooms: [],
     };
   },
+  mounted (){
+    this.getRooms();
+  },
   methods: {
+    async getRooms(){
+      const baseUrl = process.env.VUE_APP_URL_BACK;
+        const response = await axios.get(baseUrl+"/room", {
+            withCredentials: false
+        });
+        console.log(response.data);
+        this.rooms = response.data;
+    },
     toggleRoom(code, active) {
       const room = this.rooms.find((room) => room.code === code);
       if (room) {
@@ -102,15 +94,17 @@ export default {
         console.log(`Habitación ${code} actualizada: ${room.active ? 'Disponible' : 'No disponible'}`);
       }
     },
-    editRoom(code) {
-      console.log('Editar habitación', code);
-      this.$router.push(`/habitaciones/editar/${code}`);
+    editRoom(id) {
+      this.$router.push(`/habitaciones/editar/${id}`);
     },
-    deleteRoom(code) {
+    async deleteRoom(id) {
       const confirmation = confirm('¿Estás seguro de que quieres eliminar esta habitación?');
       if (confirmation) {
-        this.rooms = this.rooms.filter((room) => room.code !== code);
-        console.log('Habitación eliminada', code);
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+        await axios.delete(baseUrl+"/room/"+id, {
+            withCredentials: false
+        });
+        this.getRooms();
       }
     },
   },

@@ -79,11 +79,15 @@ export default {
         this.$router.push(`/temporadas/editar/${id}`);
     },
     async deleteTemporada(id) {
-        const baseUrl = process.env.VUE_APP_URL_BACK;
-        await axios.delete(baseUrl+"/season/"+id, {
-            withCredentials: false
-        });
-        this.getTemporadas();
+        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta habitación?');
+        if (confirmation) {
+            const baseUrl = process.env.VUE_APP_URL_BACK;
+            await axios.delete(baseUrl+"/season/"+id, {
+                withCredentials: false
+            });
+            this.getTemporadas();
+        }
+        
     },
   }
 }
