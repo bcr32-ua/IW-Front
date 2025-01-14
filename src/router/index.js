@@ -15,6 +15,9 @@ import EditarHabitacion from '../components/EditarHabitacion.vue';
 import GestionTemporadas from '../components/GestionTemporadas.vue';
 import CrearTemporada from '../components/CrearTemporada.vue';
 import EditarTemporada from '../components/EditarTemporada.vue';
+import GestionServicios from '../components/GestionServicios.vue';
+import CrearServicio from '../components/CrearServicio.vue';
+import EditarServicio from '../components/EditarServicio.vue';
 
 
 Vue.use(Router);
@@ -37,8 +40,9 @@ export default new Router({
         { path: '/gestionTemporadas', component: GestionTemporadas },
         { path: '/nuevaTemporada', component: CrearTemporada },
         { path: '/temporadas/editar/:id', component: EditarTemporada },
-
-
+        { path: '/gestionServicios', component: GestionServicios },
+        { path: '/nuevoServicio', component: CrearServicio },
+        {  path: '/servicios/editar/:id', component: EditarServicio },
 
     ],
 });
