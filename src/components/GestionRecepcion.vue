@@ -25,10 +25,10 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(user) in users" :key="user.id">
-                                    <td>{{ user.nombre }}</td>
-                                    <td>{{ user.apellido }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.lastname }}</td>
                                     <td>{{ user.email }}</td>
-                                    <td>{{ user.telefono }}</td>
+                                    <td>{{ user.phone }}</td>
                                     <td>
                                         <button class="btn" @click="editUser(user.id)"><i class="bi bi-pencil-square"></i></button>
                                         <button class="btn" @click="deleteUser(user.id)"><i class="bi bi-trash"></i></button>
@@ -48,6 +48,7 @@
 <script>
 import NavBar from '../components/NavBar.vue';
 import MenuAdmin from '../components/MenuAdmin.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -56,47 +57,36 @@ export default {
   },
   data() {
     return {
-        users: [{
-            id: 1,
-            nombre: 'Ivan',
-            apellido: 'Garcia',
-            email: 'ivan@ua.es',
-            telefono: '123456789',
-        },
-        {
-            id: 2,
-            nombre: 'Pepe',
-            apellido: 'Garcia',
-            email: 'pepe@ua.es',
-            telefono: '123456788',
-        }
-      ],
+        users: [],
     };
   },
   mounted () {
     this.getUsers();
-    console.log('Clientes obtenidos');
   },
   methods: {
     async getUsers() {
       try {
-        /*const response = await axios.get('http://localhost:3000/recepcionistas');
-        this.users = response.data;*/
-        console.log('Recepcionistas obtenidos');
+       // solo recepcion
+
+       const baseUrl = process.env.VUE_APP_URL_BACK;
+        const response = await axios.get(baseUrl+"/user", {
+            withCredentials: false
+        });
+        this.users = response.data;
       } catch (error) {
         console.error(error);
       }
     },
     async deleteUser(id) {
       try {
-        const confirmation = confirm('¿Estás seguro de que quieres eliminar este usuario?');
-        if (!confirmation) {
-          return;
+        const confirmation = confirm('¿Estás seguro de que quieres eliminar este cliente?');
+        if (confirmation) {
+          const baseUrl = process.env.VUE_APP_URL_BACK;
+            await axios.delete(baseUrl+"/user/"+id, {
+                withCredentials: false
+            });
+            this.getUsers();
         }
-        /*const response = await axios.delete(`http://localhost:3000/users/${id}`);
-        console.log(response);*/
-        this.users = this.users.filter((user) => user.id !== id);
-        console.log('Usuario eliminado ', id);
       } catch (error) {
         console.error(error);
       }
