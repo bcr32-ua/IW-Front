@@ -18,6 +18,9 @@
           <template v-if="isLoggedIn">
             <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
             <router-link to="/MisReservas" class="dropdown-item">Mis Reservas</router-link>
+            <template v-if="userType === 'emp'">
+              <router-link to="/gestionClientes" class="dropdown-item">Gestión</router-link>
+            </template>
             <span class="dropdown-item" @click="logout">Cerrar sesión</span>
           </template>
           <template v-else>
@@ -36,6 +39,7 @@ export default {
     return {
       showDropdown: false,
       isLoggedIn: !!localStorage.getItem('userId'),
+      userType: localStorage.getItem('userType') || null,
     };
   },
   methods: {
@@ -45,7 +49,6 @@ export default {
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
     },
-
     handleOutsideClick(event) {
       const dropdown = this.$el.querySelector('.user-icon-wrapper');
       if (dropdown && !dropdown.contains(event.target)) {
@@ -54,13 +57,14 @@ export default {
     },
     logout() {
       localStorage.removeItem('userId');
+      localStorage.removeItem('userType');
       this.isLoggedIn = false;
+      this.userType = null;
       this.showDropdown = false;
       if (this.$route.path !== '/') {
         this.$router.push('/');
       }
-    }
-
+    },
   },
   mounted() {
     document.addEventListener('click', this.handleOutsideClick);
@@ -68,6 +72,7 @@ export default {
   beforeDestroy() {
     document.removeEventListener('click', this.handleOutsideClick);
   },
+
 };
 </script>
 
