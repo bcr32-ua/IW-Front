@@ -6,29 +6,30 @@
             <div class="content">
                 <RoomSearch />
             </div>
-                <div class="filtered-rooms">                    
-                    <div v-if="rooms.length === 0" class="no-rooms">
-                        <p>No se encontraron habitaciones para los criterios seleccionados.</p>
-                    </div>
+            <div class="filtered-rooms">                    
+                <div v-if="rooms.length === 0" class="no-rooms">
+                    <p>No se encontraron habitaciones para los criterios seleccionados.</p>
+                </div>
 
-                    <div v-else class="room-list">
-                        <div v-for="room in rooms" :key="room.id" class="room-card">
+                <div v-else class="room-list">
+                    <div v-for="room in rooms" :key="room.id" class="room-card">
+                        <h2>Habitación {{ room.code }}</h2>
+                        <div class="room-info">
                             <img src="https://www.myboutiquehotel.com/photos/110778/grand-prince-hotel-takanawa-hanakohro-tokyo-002-49118-1110x700.jpg" alt="hab" class="room-image"/>
-                            <div class="room-info">
-                                <h2>Habitación {{ room.code }}</h2>
+                            <div class="room-details">
                                 <p><strong>Personas:</strong> {{ room.people }}</p>
                                 <p><strong>Piso:</strong> {{ room.floor }}</p>
                                 <p><strong>Tipo:</strong> {{ room.type }}</p>
                                 <p><strong>Precio base:</strong> ${{ room.base_price.toFixed(2) }}</p>
                                 <p>{{ room.description }}</p>
-                                <button @click="reserveRoom(room.id)" class="reserve-button">
-                                Reservar
-                                </button>
                             </div>
                         </div>
+                        <button @click="reserveRoom(room.id)" class="reserve-button">
+                            Reservar
+                            </button>
                     </div>
                 </div>
-            
+            </div>
         </div>
     </div>
   </template>
@@ -127,29 +128,37 @@
   }
   
   .room-list {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
   }
 
   .room-card {
+    width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     background-color: white;
+    padding: 40px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .room-image {
-    margin-left: 50px;
     width: 300.89px;
     height: 200px;
     object-fit: cover;
     margin-right: 20px;
+    border-radius: 10px;
   }
   
-  .room-info {
+  .room-info{
+    display: flex;
+    align-items: center;
+  }
+  .room-details {
     padding: 15px;
     margin-right: 20px;
   }
