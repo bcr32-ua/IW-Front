@@ -17,7 +17,7 @@
         <div v-if="showDropdown" class="dropdown-menu">
           <template v-if="isLoggedIn">
             <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
-            <router-link to="#" class="dropdown-item">Mis Reservas</router-link>
+            <router-link to="/MisReservas" class="dropdown-item">Mis Reservas</router-link>
             <span class="dropdown-item" @click="logout">Cerrar sesión</span>
           </template>
           <template v-else>
@@ -43,9 +43,7 @@ export default {
       window.location.href = '/';
     },
     toggleDropdown() {
-      console.log('Before Toggle:', this.showDropdown);
       this.showDropdown = !this.showDropdown;
-      console.log('After Toggle:', this.showDropdown);
     },
 
     handleOutsideClick(event) {

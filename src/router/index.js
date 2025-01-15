@@ -15,6 +15,7 @@ import CrearTemporada from '../components/CrearTemporada.vue';
 import PerfilRegistrado from "../components/PerfilRegistrado.vue";
 import EditarPerfil from '@/components/EditarPerfil.vue';
 import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
+import MisReservas from '@/components/MisReservas.vue';
 
 Vue.use(Router);
 
@@ -36,5 +37,6 @@ export default new Router({
         { path: '/perfilRegistrado', component: PerfilRegistrado},
         { path: '/editarPerfil', component: EditarPerfil},
         { path: '/filtroHabitaciones', component: FiltroHabitaciones},
+        { path: '/MisReservas', component: MisReservas},
     ],
 });
