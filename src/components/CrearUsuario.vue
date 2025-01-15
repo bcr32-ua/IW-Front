@@ -36,9 +36,8 @@
                             <div class="form-group">
                                 <label for="type">Tipo de usuario</label>
                                 <select class="form-select" id="type" v-model="formData.type" required>
-                                    <option value="admin">Administrador</option>
-                                    <option value="recepcion">Recepcion</option>
-                                    <option value="user">Usuario</option>
+                                    <option value="emp">Empleado</option>
+                                    <option value="cli">Cliente</option>
                                 </select>
                             </div>
                         </div>
@@ -84,7 +83,7 @@ export default {
         async createUser() {
             try {
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.post(baseUrl+"/user/register", this.formData);
+                const response = await axios.post(baseUrl+"/user", this.formData);
                 
                 console.log(response.data);
                 router.back();  

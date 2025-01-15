@@ -71,6 +71,10 @@ export default {
         });
         console.log(response.data);
         this.temporadas = response.data;
+        
+        this.temporadas.sort((a, b) => {
+            return new Date(a.season_start) - new Date(b.season_start);
+        });
     },
     formatDate(date) {
         return new Date(date).toLocaleDateString();

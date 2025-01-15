@@ -66,13 +66,10 @@ export default {
   methods: {
     async getClientes() {
       try {
-
-        // solo clientes
-
         const baseUrl = process.env.VUE_APP_URL_BACK;
-        const response = await axios.get(baseUrl+"/user", {
-            withCredentials: false
-        });
+        const response = await axios.get(baseUrl+"/user", { params: { type: 'cli' }},
+          {withCredentials: false});
+
         this.clientes = response.data;
       } catch (error) {
         console.error(error);

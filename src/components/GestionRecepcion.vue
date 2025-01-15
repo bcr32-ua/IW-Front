@@ -66,12 +66,9 @@ export default {
   methods: {
     async getUsers() {
       try {
-       // solo recepcion
-
-       const baseUrl = process.env.VUE_APP_URL_BACK;
-        const response = await axios.get(baseUrl+"/user", {
-            withCredentials: false
-        });
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+        const response = await axios.get(baseUrl+"/user", { params: { type: 'emp' }},
+          {withCredentials: false});
         this.users = response.data;
       } catch (error) {
         console.error(error);

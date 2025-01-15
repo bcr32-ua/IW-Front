@@ -17,21 +17,34 @@
                                 </div>
                                 <div class="col">
                                     <label for="floor">Planta</label>
-                                    <input type="number" class="form-control" id="floor" v-model="formData.floor" required>
+                                    <select class="form-select" v-model="formData.floor" required>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="people">Gente</label>
-                                    <input type="number" class="form-control" id="people" v-model="formData.people" required>
+                                    <select class="form-select" v-model="formData.people" required>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="type">Tipo</label>
-                                    <input type="text" class="form-control" id="type" v-model="formData.type" required>
+                                    <select class="form-select" v-model="formData.type" required>
+                                        <option value="Simple">Simple</option>
+                                        <option value="Doble (dos camas)">Doble (dos camas)</option>
+                                        <option value="Doble (una cama)">Doble (una cama)</option>
+                                        <option value="Triple">Triple</option>
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="base_price">Precio</label>
-                                    <input type="number" class="form-control" id="base_price" v-model="formData.base_price" required>
+                                    <input type="number" step="0.01" class="form-control" id="base_price" v-model="formData.base_price" required>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -82,10 +95,10 @@ export default {
         };
     },
     mounted() {
-        this.getRooms();
+        this.getRoom();
     },
     methods: {
-        async getRooms(){
+        async getRoom(){
             try {
                 const baseUrl = process.env.VUE_APP_URL_BACK;
                 const response = await axios.get(baseUrl+"/room/"+this.$route.params.id);

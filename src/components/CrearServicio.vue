@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="price">Precio</label>
-                                    <input type="number" class="form-control" id="price" v-model="formData.price" required>
+                                    <input type="number"  step="0.01" class="form-control" id="price" v-model="formData.price" required>
                                 </div>
                             </div>
                             <div class="row mt-2">

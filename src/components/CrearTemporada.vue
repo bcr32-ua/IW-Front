@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="multiplier">Multiplicador</label>
-                                    <input type="number" class="form-control" id="multiplier" v-model="formData.multiplier" required>
+                                    <input type="number" step="0.01" class="form-control" id="multiplier" v-model="formData.multiplier" required>
                                 </div>
                             </div>
                             <div class="row mt-2">

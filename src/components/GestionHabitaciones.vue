@@ -35,10 +35,10 @@
                               <td>{{ room.base_price }}</td>
                               <td>{{ room.description }}</td>
                               <td>
-                                  <button v-if="room.active" class="btn btn-success" @click="toggleRoom(room.code, room.active)">
+                                  <button v-if="room.active" class="btn btn-success" @click="toggleRoom(room.id)">
                                       Disponible
                                   </button>
-                                  <button v-else class="btn btn-danger" @click="toggleRoom(room.code, room.active)">
+                                  <button v-else class="btn btn-danger" @click="toggleRoom(room.id)">
                                       No disponible
                                   </button>
                               </td>
@@ -86,13 +86,18 @@ export default {
         });
         console.log(response.data);
         this.rooms = response.data;
+        // ordenar por código
+        this.rooms.sort((a, b) => {
+            return a.code - b.code;
+        });
     },
-    toggleRoom(code, active) {
-      const room = this.rooms.find((room) => room.code === code);
-      if (room) {
-        room.active = !active;
-        console.log(`Habitación ${code} actualizada: ${room.active ? 'Disponible' : 'No disponible'}`);
-      }
+    async toggleRoom(id) {
+      const baseUrl = process.env.VUE_APP_URL_BACK;
+      const response = await axios.put(baseUrl+"/room/updateActive/"+id, {
+          withCredentials: false
+      });
+      console.log(response.data);
+      this.getRooms();     
     },
     editRoom(id) {
       this.$router.push(`/habitaciones/editar/${id}`);

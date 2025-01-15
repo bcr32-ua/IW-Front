@@ -26,11 +26,11 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(book) in books" :key="book.id">
-                                        <td>{{ book.user }}</td>
-                                        <td>{{ book.room }}</td>
+                                        <td>{{ book.user.email }}</td>
+                                        <td>{{ book.room.code }}</td>
                                         <td>{{ formatDate(book.start_date) }}</td>
                                         <td>{{ formatDate(book.end_date) }}</td>
-                                        <td>{{ book.total_price }}</td>
+                                        <td>{{ book.total_price }}€</td>
                                         <td>
                                             <button class="btn" @click="editReserva(book.id)"><i class="bi bi-pencil-square"></i></button>
                                             <button class="btn" @click="deleteReserva(book.id)"><i class="bi bi-trash"></i></button>
@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-        books: []
+        books: [],
     }
   },
   mounted() {
