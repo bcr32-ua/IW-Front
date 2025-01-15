@@ -61,10 +61,12 @@ export default {
   methods: {
     async loginUser() {
       try {
-        const response = await axios.post('http://localhost:8080/user/login', this.formData);
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+        const response = await axios.post(`${baseUrl}/user/login`, this.formData);
 
-        const userId = response.data;
-        localStorage.setItem('userId', userId);
+        const { id, type } = response.data;
+        localStorage.setItem('userId', id);
+        localStorage.setItem('userType', type);
 
         this.$router.push('/');
       } catch (error) {
@@ -138,4 +140,6 @@ export default {
   margin-top: 10px;
   color: #dc3545;
 }
+
+
 </style>

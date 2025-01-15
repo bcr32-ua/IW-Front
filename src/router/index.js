@@ -12,7 +12,10 @@ import GestionRecepcion from '../components/GestionRecepcion.vue';
 import GestionHabitaciones from '../components/GestionHabitaciones.vue';
 import GestionTemporadas from '../components/GestionTemporadas.vue';
 import CrearTemporada from '../components/CrearTemporada.vue';
-
+import PerfilRegistrado from "../components/PerfilRegistrado.vue";
+import EditarPerfil from '@/components/EditarPerfil.vue';
+import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
+import MisReservas from '@/components/MisReservas.vue';
 
 Vue.use(Router);
 
@@ -31,8 +34,9 @@ export default new Router({
         { path: '/gestionHabitaciones', component: GestionHabitaciones },
         { path: '/gestionTemporadas', component: GestionTemporadas },
         { path: '/nuevaTemporada', component: CrearTemporada },
-
-
-
+        { path: '/perfilRegistrado', component: PerfilRegistrado},
+        { path: '/editarPerfil', component: EditarPerfil},
+        { path: '/filtroHabitaciones', component: FiltroHabitaciones},
+        { path: '/MisReservas', component: MisReservas},
     ],
 });
