@@ -19,6 +19,15 @@
                                     <label for="people">Número de personas</label>
                                     <input type="number" class="form-control" id="people" v-model="bookingData.people" required>
                                 </div>
+                                <div class="col">
+                                    <label for="beds">Número de camas</label>
+                                    <select class="form-control" id="beds" v-model="bookingData.beds" required>
+                                        <option value="1">Simple</option>
+                                        <option value="2">Doble (dos camas)</option>
+                                        <option value="1">Doble (una cama)</option>
+                                        <option value="2">Triple</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
@@ -171,7 +180,6 @@ export default {
     },
     data() {
         return {
-            
             bookingData: {
                 user: '',
                 room: '',
@@ -189,6 +197,7 @@ export default {
             services: [],
             nDays: 0,
             people: 0,
+            beds: 0,
             price: {
                 room: 0,
                 season: 0,
@@ -227,28 +236,27 @@ export default {
                     this.errorMessage = 'Usuario no encontrado';
                     return;
                 }
-                //this.bookingData.user = user.data;
+                this.bookingData.user = user.data;
+                
 
-                /*const rooms = await axios.get(`${baseUrl}/room/disponible`, {
-                    params: { start_date: this.bookingData.start_date, end_date: this.bookingData.end_date, people: this.people },
+                const rooms = await axios.get(`${baseUrl}/room/available`, {
+                    params: { start_date: this.bookingData.start_date.split('T')[0], end_date: this.bookingData.end_date.split('T')[0], people: this.bookingData.people, beds: this.bookingData.beds },
                 });
-                if (!room.data) {
+                console.log("params ", this.bookingData.start_date.split('T')[0], this.bookingData.end_date.split('T')[0], this.people, this.beds);
+                console.log("habitaciones ", rooms.data);
+                if (rooms.data.length === 0) {
                     this.errorMessage = 'No hay habitaciones disponibles';
                     return;
                 }
-                this.rooms = rooms.data;*/
-                const rooms = await axios.get(`${baseUrl}/room`);
                 this.rooms = rooms.data;
 
                 this.nDays = ((new Date(this.bookingData.end_date) - new Date(this.bookingData.start_date)) / (1000 * 60 * 60 * 24));
+                console.log("#### ", this.bookingData.start_date.split('T')[0]);
 
-                /*const season = await axios.get(`${baseUrl}/season`, {
-                    params: { start_date: this.bookingData.start_date, end_date: this.bookingData.end_date },
+                const season = await axios.get(`${baseUrl}/season/date`, {
+                    params: { date: this.bookingData.start_date.split('T')[0]},
                 });
-
-                this.bookingData.season = season.data;*/
-                const season = await axios.get(`${baseUrl}/season`);
-                this.bookingData.season = season.data[0];
+                this.bookingData.season = season.data;
 
                 this.formOk = true;
 
@@ -263,15 +271,12 @@ export default {
         },
         async detailsReserva() {
             try {
-                //const baseUrl = process.env.VUE_APP_URL_BACK;
 
                 this.price.room = this.bookingData.room.base_price * this.nDays;
                 this.price.season = this.bookingData.season.multiplier * this.price.room;
 
                 this.price.services = this.bookingData.services.reduce((acc, service) => acc + service.price, 0) * this.nDays;
                 this.bookingData.total_price = this.price.season + this.price.services;
-
-                console.log("**** ", this.bookingData);
 
                 this.bookOk = true;
             }catch (error) {
@@ -285,7 +290,7 @@ export default {
 
                 const baseUrl = process.env.VUE_APP_URL_BACK;                
                 await axios.post(baseUrl+"/booking", this.bookingData);
-                
+
                 router.back();  
 
 
