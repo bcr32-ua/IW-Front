@@ -6,10 +6,19 @@
       <label>Hasta...</label>
       <input type="date" v-model="endDate" required/>
       <label>Camas</label>
-      <input type="number" v-model.number="beds" min="0" required/>
+      <select class="form-select" id="beds" v-model.number="beds" required>
+          <option value="1">Simple</option>
+          <option value="2">Doble (dos camas)</option>
+          <option value="1">Doble (una cama)</option>
+          <option value="2">Triple</option>
+      </select>
       <label>Personas</label>
-      <input type="number" v-model.number="people" min="0" required/>
-      <button type="submit">Buscar habitación</button>
+      <select class="form-select" v-model.number="people" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+      </select>
+      <button class="mt-3" type="submit">Buscar habitación</button>
     </form>
   </div>
 </template>
