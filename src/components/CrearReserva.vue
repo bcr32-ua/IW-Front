@@ -274,6 +274,10 @@ export default {
                 const season = await axios.get(`${baseUrl}/season/date`, {
                     params: { date: this.bookingData.start_date.split('T')[0]},
                 });
+                if(!season.data) {
+                    this.errorMessage = 'Temporada no encontrada';
+                    return;
+                }
                 this.bookingData.season = season.data;
 
                 this.formOk = true;
