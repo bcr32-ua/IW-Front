@@ -26,6 +26,7 @@ import EditarReserva from '../components/EditarReserva.vue';
 import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
 import MisReservas from '@/components/MisReservas.vue';
 import ContactPage from '@/components/ContactPage.vue';
+import seasonsPage from '@/components/seasonsPage.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -57,5 +58,6 @@ export default new Router({
         { path: '/filtroHabitaciones', component: FiltroHabitaciones},
         { path: '/MisReservas', component: MisReservas},
         { path: '/contact-page', component: ContactPage},
+        { path: '/seasons', component: seasonsPage},
     ],
 });
