@@ -13,15 +13,19 @@
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="user">Usuario</label>
-                                    <input type="email" class="form-control" id="user" v-model="bookingData.user" required>
+                                    <input type="email" class="form-control" id="user" v-model="formData.user" required>
                                 </div>
                                 <div class="col">
                                     <label for="people">Número de personas</label>
-                                    <input type="number" class="form-control" id="people" v-model="bookingData.people" required>
+                                    <select class="form-select" v-model="people" required>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="beds">Número de camas</label>
-                                    <select class="form-control" id="beds" v-model="bookingData.beds" required>
+                                    <select class="form-select" id="beds" v-model="beds" required>
                                         <option value="1">Simple</option>
                                         <option value="2">Doble (dos camas)</option>
                                         <option value="1">Doble (una cama)</option>
@@ -32,11 +36,11 @@
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="start_date">Fecha de entrada</label>
-                                    <input type="date" class="form-control" id="start_date" v-model="bookingData.start_date" required>
+                                    <input type="date" class="form-control" id="start_date" v-model="formData.start_date" required>
                                 </div>
                                 <div class="col">
                                     <label for="end_date">Fecha de salida</label>
-                                    <input type="date" class="form-control" id="end_date" v-model="bookingData.end_date" required>
+                                    <input type="date" class="form-control" id="end_date" v-model="formData.end_date" required>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +71,7 @@
                                         <tbody>
                                             <tr v-for="(room) in rooms" :key="room.id">
                                                 <td>
-                                                    <input type="radio" name="room" v-model="bookingData.room" :value="room" required>
+                                                    <input type="radio" name="room" v-model="formData.room" :value="room" required>
                                                 </td>
                                                 <td>{{ room.code }}</td>
                                                 <td>{{ room.base_price }}€ </td>
@@ -91,7 +95,7 @@
                                         <tbody>
                                             <tr v-for="(service) in services" :key="service.id">
                                                 <td>
-                                                    <input type="checkbox" name="services" v-model="bookingData.services" :value="service">
+                                                    <input type="checkbox" name="services" v-model="formData.services" :value="service">
                                                 </td>
                                                 <td>{{ service.name }}</td>
                                                 <td>{{ service.price }}€ </td>
@@ -103,7 +107,7 @@
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="notes">Notas</label>
-                                    <textarea class="form-control" id="notes" v-model="bookingData.notes"></textarea>
+                                    <textarea class="form-control" id="notes" v-model="formData.notes"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -180,6 +184,16 @@ export default {
     },
     data() {
         return {
+            formData: {
+                user: '',
+                room: '',
+                season: '',
+                start_date: '',
+                end_date: '',
+                services: [],
+                total_price: '',
+                notes: '',
+            },
             bookingData: {
                 user: '',
                 room: '',
@@ -226,21 +240,25 @@ export default {
     methods: {
         async createReserva() {
             try {
+                this.errorMessage = '';
+                this.formOk = false;
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
                 
                 const user = await axios.get(`${baseUrl}/user/email`, {
-                    params: { email: this.bookingData.user },
+                    params: { email: this.formData.user },
                 });
                 if (!user.data) {
                     this.errorMessage = 'Usuario no encontrado';
                     return;
                 }
                 this.bookingData.user = user.data;
-                
+
+                this.bookingData.start_date = this.formData.start_date;
+                this.bookingData.end_date = this.formData.end_date;
 
                 const rooms = await axios.get(`${baseUrl}/room/available`, {
-                    params: { start_date: this.bookingData.start_date.split('T')[0], end_date: this.bookingData.end_date.split('T')[0], people: this.bookingData.people, beds: this.bookingData.beds },
+                    params: { start_date: this.bookingData.start_date.split('T')[0], end_date: this.bookingData.end_date.split('T')[0], people: this.people, beds: this.beds },
                 });
                 console.log("params ", this.bookingData.start_date.split('T')[0], this.bookingData.end_date.split('T')[0], this.people, this.beds);
                 console.log("habitaciones ", rooms.data);
@@ -272,11 +290,19 @@ export default {
         async detailsReserva() {
             try {
 
+                this.errorMessage = '';
+                this.bookOk = false;
+
+                this.bookingData.room = this.formData.room;
+                this.bookingData.services = this.formData.services;
+
                 this.price.room = this.bookingData.room.base_price * this.nDays;
                 this.price.season = this.bookingData.season.multiplier * this.price.room;
 
                 this.price.services = this.bookingData.services.reduce((acc, service) => acc + service.price, 0) * this.nDays;
                 this.bookingData.total_price = this.price.season + this.price.services;
+                // redondear a dos decimales
+                this.bookingData.total_price = Math.round(this.bookingData.total_price * 100) / 100;
 
                 this.bookOk = true;
             }catch (error) {
