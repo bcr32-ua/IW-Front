@@ -77,7 +77,14 @@
         }
       },
       reserveRoom(roomId) {
-        this.$router.push({ name: "ConfirmarReserva", query: { roomId } });
+        //this.$router.push({ name: "ConfirmarReserva", query: { roomId } });
+        // fechaInicio 12/12/2025, fechaFin 15/12/2025, roomId 3, rooms 1, people 2
+        this.filter.startDate = "2025-12-12";
+        this.filter.endDate = "2025-12-15";
+        roomId = 4;
+        this.filter.rooms = 1;
+        this.filter.people = 2;
+        this.$router.push({ name: 'ProcesoReserva', params: { roomId, startDate: this.filter.startDate, endDate: this.filter.endDate, rooms: this.filter.rooms, people: this.filter.people } });
       },
     },
   };

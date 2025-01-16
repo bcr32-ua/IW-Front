@@ -26,6 +26,7 @@ import EditarReserva from '../components/EditarReserva.vue';
 import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
 import ContactPage from '@/components/ContactPage.vue';
 import ProcesoReserva from '../components/ProcesoReserva.vue';
+import ReservaCompletada from '../components/ReservaCompletada.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -57,5 +58,6 @@ export default new Router({
         { path: '/filtroHabitaciones', component: FiltroHabitaciones},
         { path: '/contact-page', component: ContactPage},
         { path: '/procesoReserva', name: 'ProcesoReserva', component: ProcesoReserva},
+        { path: '/reservaCompletada', component: ReservaCompletada }
     ],
 });
