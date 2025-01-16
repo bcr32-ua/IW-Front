@@ -56,15 +56,6 @@
                   required
                 />
               </div>
-              <div class="form-group">
-                <label for="address">Dirección</label>
-                <input
-                  type="text"
-                  id="address"
-                  v-model="formData.address"
-                  placeholder="Tu dirección"
-                />
-              </div>
               <button type="submit" class="save-button">Guardar cambios</button>
             </form>
             <div v-if="errorMessage" class="error-message">
@@ -95,7 +86,6 @@
           name: "",
           surname: "",
           phone: "",
-          address: "",
         },
         errorMessage: "",
         successMessage: "",
