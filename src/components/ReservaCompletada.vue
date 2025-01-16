@@ -31,14 +31,18 @@
   
   <script>
   import NavBar from "../components/NavBar.vue";
+  import axios from "axios";
   
   export default {
     components: {
       NavBar,
     },
     async mounted() {
+
+        var bookingData = JSON.parse(this.$route.query.booking);
+        console.log(bookingData);
         const baseUrl = process.env.VUE_APP_URL_BACK;                
-        await axios.post(baseUrl+"/booking", this.bookingData);
+        await axios.post(baseUrl+"/booking", bookingData);
     },
   };
   </script>

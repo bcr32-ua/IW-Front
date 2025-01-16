@@ -88,165 +88,6 @@
                     </div>
                 </form>
             </div>
-            
-            <!--<div class="card text-bg-dark mt-4 mb-4 px-3">
-
-                <h2 class="text-center mt-2">Reservar habitación</h2>
-                <form @submit.prevent="createReserva">
-                    <div class="row">
-                        <div class="col">
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <label for="user">Usuario</label>
-                                    <input type="email" class="form-control" id="user" v-model="formData.user" required disabled>
-                                </div>
-                                <div class="col">
-                                    <label for="people">Número de personas</label>
-                                    <select class="form-select" v-model="people" required>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="beds">Número de camas</label>
-                                    <select class="form-select" id="beds" v-model="beds" required>
-                                        <option value="1">Simple</option>
-                                        <option value="2">Doble (dos camas)</option>
-                                        <option value="1">Doble (una cama)</option>
-                                        <option value="2">Triple</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <label for="start_date">Fecha de entrada</label>
-                                    <input type="date" class="form-control" id="start_date" v-model="formData.start_date" required>
-                                </div>
-                                <div class="col">
-                                    <label for="end_date">Fecha de salida</label>
-                                    <input type="date" class="form-control" id="end_date" v-model="formData.end_date" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-light">Buscar</button>
-                    </div>
-                </form>
-            </div>
-
-            <div v-if="formOk" class="card text-bg-dark mt-4 mb-4 px-3">
-                <h2 class="text-center mt-2">Detalles</h2>
-                <form @submit.prevent="detailsReserva">
-                    <div class="row">
-                        <div class="col">
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <label for="room">Habitaciones disponibles</label>
-                                    <table class="table-secondary table table-striped mt-2">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Habitacion</th>
-                                                <th>Precio</th>
-                                                <th>Descripcion</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(room) in rooms" :key="room.id">
-                                                <td>
-                                                    <input type="radio" name="room" v-model="formData.room" :value="room" required>
-                                                </td>
-                                                <td>{{ room.code }}</td>
-                                                <td>{{ room.base_price }}€ </td>
-                                                <td>{{ room.description }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <label for="services">Servicios</label>
-                                    <table class="table-secondary table table-striped mt-2">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Servicio</th>
-                                                <th>Precio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(service) in services" :key="service.id">
-                                                <td>
-                                                    <input type="checkbox" name="services" v-model="formData.services" :value="service">
-                                                </td>
-                                                <td>{{ service.name }}</td>
-                                                <td>{{ service.price }}€ </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <label for="notes">Notas</label>
-                                    <textarea class="form-control" id="notes" v-model="formData.notes"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-light">Confirmar datos</button>
-                    </div>
-                </form>
-            </div>
-
-            <div v-if="bookOk" class="card text-bg-dark mt-4 mb-4 px-3">
-                <h2 class="text-center mt-2">Resumen</h2>
-                <form @submit.prevent="confirmReserva">
-                    <table class="table-secondary table table-striped mt-4">
-                        <tbody>
-                            <tr>
-                                <td><strong>Usuario</strong></td>
-                                <td> {{ bookingData.user.email }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Fechas</strong></td>
-                                <td> {{ formatDate(bookingData.start_date) }} - {{ formatDate(bookingData.end_date) }} </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Habitacion</strong></td>
-                                <td> {{ bookingData.room.base_price }}€ * {{ nDays }} dias = {{ price.room }}€ </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Aumento temporada</strong></td>
-                                <td> {{ bookingData.season.type }} (x{{ bookingData.season.multiplier }})  - {{ price.season }}€ </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Servicios</strong></td>
-                                <td>
-                                    <ul>
-                                        <li v-for="service in bookingData.services" :key="service.id">{{ service.name }} - {{ service.price }}€</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Total</strong></td>
-                                <td> {{ bookingData.total_price }}€</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Notas</strong></td>
-                                <td> {{ bookingData.notes }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mt-4 mb-3 d-flex justify-content-center">
-                        <button class="btn btn-light">Reservar</button>
-                    </div>
-                </form>
-            </div>-->
 
             <div v-if="errorMessage" class="alert alert-danger" role="alert">
                 {{ errorMessage}}
@@ -257,7 +98,6 @@
 </template>
 
 <script>
-import router from '@/router';
 import NavBar from '../components/NavBar.vue';
 import axios from 'axios';
 
@@ -387,16 +227,16 @@ export default {
         },
         async confirmReserva() {
             try {
+                var booking_str = JSON.stringify(this.bookingData);
 
-                const tpv = await axios.post(`https://green-sys.es/sales`, {
+                await axios.post(`https://green-sys.es/sales`, {
                     amount: this.bookingData.total_price,
                     description: 'Reserva de habitación',
                     currency: 'EUR',
                     reference: this.bookingData.user.email+'-'+this.bookingData.room.code+'-'+this.bookingData.start_date+'-'+this.bookingData.end_date,
-                    url_callback: 'https://frolicking-pavlova-d115a9.netlify.app/ReservaCompletada',
+                    url_callback: 'https://frolicking-pavlova-d115a9.netlify.app/ReservaCompletada?booking='+booking_str,
                 });
                 
-
                 
 
 
