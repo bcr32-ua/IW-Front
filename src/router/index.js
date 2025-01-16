@@ -29,6 +29,7 @@ import ContactPage from '@/components/ContactPage.vue';
 import ProcesoReserva from '../components/ProcesoReserva.vue';
 import ReservaCompletada from '../components/ReservaCompletada.vue';
 import seasonsPage from '@/components/seasonsPage.vue';
+import PaginaNoEncontrada from '../components/PaginaNoEncontrada.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -63,5 +64,6 @@ export default new Router({
         { path: '/procesoReserva', name: 'ProcesoReserva', component: ProcesoReserva},
         { path: '/reservaCompletada', component: ReservaCompletada },
         { path: '/seasons', component: seasonsPage},
+        { path: "/:catchAll(.*)", name: "NotFound", component: PaginaNoEncontrada },
     ],
 });
