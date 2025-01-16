@@ -84,7 +84,7 @@
           email: "",
           password: "",
           name: "",
-          surname: "",
+          lastname: "",
           phone: "",
         },
         errorMessage: "",
