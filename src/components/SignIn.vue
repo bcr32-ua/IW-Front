@@ -67,9 +67,9 @@ export default {
             this.formData
         );
 
-        const userId = response.data;
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('userType', response.data.type);
+        const { id, type } = response.data;
+        localStorage.setItem('userId', id);
+        localStorage.setItem('userType', type);
         this.$router.push('/');
       } catch (error) {
         this.errorMessage =
