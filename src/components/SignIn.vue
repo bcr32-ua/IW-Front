@@ -69,7 +69,7 @@ export default {
 
         const userId = response.data;
         localStorage.setItem('userId', userId);
-
+        localStorage.setItem('userType', response.data.type);
         this.$router.push('/');
       } catch (error) {
         this.errorMessage =

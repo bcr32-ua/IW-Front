@@ -220,6 +220,13 @@ export default {
         };
     },
     async mounted() {
+        if (!localStorage.getItem('userType')) {
+            this.$router.push('/Signin');
+        }
+        if (localStorage.getItem('userType') !== 'emp') {
+            this.$router.push('/');
+        }
+        
         try {
             const baseUrl = process.env.VUE_APP_URL_BACK;
 

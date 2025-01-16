@@ -15,6 +15,9 @@
         <span @click="toggleDropdown" class="user-icon">👤</span>
 
         <div v-if="showDropdown" class="dropdown-menu">
+          <template v-if="isEmp">
+            <router-link to="/gestionClientes" class="dropdown-item">Administración</router-link>
+          </template>
           <template v-if="isLoggedIn">
             <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
             <router-link to="#" class="dropdown-item">Mis Reservas</router-link>
@@ -36,6 +39,7 @@ export default {
     return {
       showDropdown: false,
       isLoggedIn: !!localStorage.getItem('userId'),
+      isEmp: localStorage.getItem('userType') === 'emp',
     };
   },
   methods: {
@@ -56,7 +60,9 @@ export default {
     },
     logout() {
       localStorage.removeItem('userId');
+      localStorage.removeItem('userType');
       this.isLoggedIn = false;
+      this.isEmp = false;
       this.showDropdown = false;
       if (this.$route.path !== '/') {
         this.$router.push('/');

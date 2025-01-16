@@ -61,6 +61,12 @@ export default {
     };
   },
   mounted () {
+    if (!localStorage.getItem('userType')) {
+        this.$router.push('/Signin');
+    }
+    if (localStorage.getItem('userType') !== 'emp') {
+        this.$router.push('/');
+    }
     this.getClientes();
   },
   methods: {

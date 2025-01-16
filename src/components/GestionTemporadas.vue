@@ -61,10 +61,19 @@ export default {
     }
   },
   mounted() {
+    
+    if (!localStorage.getItem('userType')) {
+        this.$router.push('/Signin');
+    }
+    if (localStorage.getItem('userType') !== 'emp') {
+        this.$router.push('/');
+    }
+
     this.getTemporadas();
   },
   methods: {
     async getTemporadas() {
+
         const baseUrl = process.env.VUE_APP_URL_BACK;
         const response = await axios.get(baseUrl+"/season", {
             withCredentials: false

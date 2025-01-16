@@ -49,12 +49,11 @@ export default new Router({
         { path: '/nuevoServicio', component: CrearServicio },
         { path: '/servicios/editar/:id', component: EditarServicio },
         { path: '/gestionReservas', component: GestionReservas },
-        { path: '/nuevaReserva', component: CrearReserva },
-        { path: '/reservas/editar/:id', component: EditarReserva },
+        {  path: '/nuevaReserva', component: CrearReserva },
+        {  path: '/reservas/editar/:id', component: EditarReserva },
         { path: '/perfil-registrado', component: PerfilRegistrado},
         { path: '/editarPerfil', component: EditarPerfil},
         { path: '/filtroHabitaciones', component: FiltroHabitaciones},
         { path: '/contact-page', component: ContactPage},
-        
     ],
 });
