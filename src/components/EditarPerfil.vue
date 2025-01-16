@@ -93,6 +93,9 @@
       };
     },
     created() {
+      if (!localStorage.getItem('userType')) {
+          this.$router.push('/Signin');
+      }
       this.fetchUserData();
     },
     methods: {

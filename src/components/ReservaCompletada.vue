@@ -37,12 +37,20 @@
     components: {
       NavBar,
     },
-    async mounted() {
+    mounted() {
+        if (!this.$route.query.booking) {
+            this.$router.push('/');
+        }
 
-        var bookingData = JSON.parse(this.$route.query.booking);
+        this.saveBooking();
+    },
+    methods: {
+        async saveBooking() {
+          var bookingData = JSON.parse(this.$route.query.booking);
         console.log(bookingData);
         const baseUrl = process.env.VUE_APP_URL_BACK;                
         await axios.post(baseUrl+"/booking", bookingData);
-    },
+        }
+    }
   };
   </script>
