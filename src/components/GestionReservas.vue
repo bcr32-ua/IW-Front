@@ -70,7 +70,6 @@ export default {
         const response = await axios.get(baseUrl+"/booking", {
             withCredentials: false
         });
-        console.log(response.data);
         this.books = response.data;
     },
     formatDate(date) {

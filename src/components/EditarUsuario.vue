@@ -96,8 +96,7 @@ export default {
         async editUser() {
             try {
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.put(baseUrl+"/user", this.formData);
-                console.log(response.data);
+                await axios.put(baseUrl+"/user", this.formData);
                 this.errorMessage = '';
                 router.back();
             } catch (error) {

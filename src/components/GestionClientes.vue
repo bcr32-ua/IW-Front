@@ -90,7 +90,6 @@ export default {
       }
     },
     editCliente(id) {
-        console.log('Editar cliente ', id);
       this.$router.push(`/usuarios/editar/${id}`);
     }    
   }

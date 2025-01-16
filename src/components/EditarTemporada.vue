@@ -82,7 +82,6 @@ export default {
                 this.formData.season_start = this.formData.season_start.split('T')[0];
                 this.formData.season_end = this.formData.season_end.split('T')[0];
 
-                console.log(this.formData);
             } catch (error) {
                 this.errorMessage =
                     error.response?.data || 'An error occurred. Please try again.';
@@ -91,9 +90,8 @@ export default {
         async createTemporada() {
             try {
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.post(baseUrl+"/season", this.formData);
+                await axios.post(baseUrl+"/season", this.formData);
                 
-                console.log(response.data);
                 router.back();  
 
 

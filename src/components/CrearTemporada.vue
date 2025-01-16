@@ -73,9 +73,8 @@ export default {
             try {
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.post(baseUrl+"/season", this.formData);
+                await axios.post(baseUrl+"/season", this.formData);
                 
-                console.log(response.data);
                 router.back();  
 
 

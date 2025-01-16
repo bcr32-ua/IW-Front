@@ -84,19 +84,16 @@ export default {
         const response = await axios.get(baseUrl+"/room", {
             withCredentials: false
         });
-        console.log(response.data);
         this.rooms = response.data;
-        // ordenar por código
         this.rooms.sort((a, b) => {
             return a.code - b.code;
         });
     },
     async toggleRoom(id) {
       const baseUrl = process.env.VUE_APP_URL_BACK;
-      const response = await axios.put(baseUrl+"/room/updateActive/"+id, {
+      await axios.put(baseUrl+"/room/updateActive/"+id, {
           withCredentials: false
       });
-      console.log(response.data);
       this.getRooms();     
     },
     editRoom(id) {

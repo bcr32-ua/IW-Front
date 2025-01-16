@@ -69,7 +69,6 @@ export default {
         const response = await axios.get(baseUrl+"/season", {
             withCredentials: false
         });
-        console.log(response.data);
         this.temporadas = response.data;
         
         this.temporadas.sort((a, b) => {

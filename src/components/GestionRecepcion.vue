@@ -89,7 +89,6 @@ export default {
       }
     },
     editUser(id) {
-        console.log('Editar user ', id);
       this.$router.push(`/usuarios/editar/${id}`);
     }    
   }

@@ -68,9 +68,8 @@ export default {
             try {
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.post(baseUrl+"/service", this.formData);
+                await axios.post(baseUrl+"/service", this.formData);
                 
-                console.log(response.data);
                 router.back();  
 
 

@@ -73,7 +73,6 @@ export default {
                 const response = await axios.get(baseUrl+"/service/"+this.$route.params.id);
                 this.formData = response.data;
 
-                console.log(this.formData);
             } catch (error) {
                 this.errorMessage =
                     error.response?.data || 'An error occurred. Please try again.';
@@ -83,9 +82,8 @@ export default {
             try {
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.post(baseUrl+"/service", this.formData);
+                await axios.post(baseUrl+"/service", this.formData);
                 
-                console.log(response.data);
                 router.back();  
 
 

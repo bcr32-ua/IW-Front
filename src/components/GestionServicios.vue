@@ -66,7 +66,6 @@ export default {
         const response = await axios.get(baseUrl+"/service", {
             withCredentials: false
         });
-        console.log(response.data);
         this.servicios = response.data;
     },
     async editServicio(id) {

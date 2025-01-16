@@ -83,9 +83,8 @@ export default {
         async createUser() {
             try {
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                const response = await axios.post(baseUrl+"/user", this.formData);
+                await axios.post(baseUrl+"/user", this.formData);
                 
-                console.log(response.data);
                 router.back();  
 
 

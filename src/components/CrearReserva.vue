@@ -260,8 +260,6 @@ export default {
                 const rooms = await axios.get(`${baseUrl}/room/available`, {
                     params: { start_date: this.bookingData.start_date.split('T')[0], end_date: this.bookingData.end_date.split('T')[0], people: this.people, beds: this.beds },
                 });
-                console.log("params ", this.bookingData.start_date.split('T')[0], this.bookingData.end_date.split('T')[0], this.people, this.beds);
-                console.log("habitaciones ", rooms.data);
                 if (rooms.data.length === 0) {
                     this.errorMessage = 'No hay habitaciones disponibles';
                     return;
@@ -269,7 +267,6 @@ export default {
                 this.rooms = rooms.data;
 
                 this.nDays = ((new Date(this.bookingData.end_date) - new Date(this.bookingData.start_date)) / (1000 * 60 * 60 * 24));
-                console.log("#### ", this.bookingData.start_date.split('T')[0]);
 
                 const season = await axios.get(`${baseUrl}/season/date`, {
                     params: { date: this.bookingData.start_date.split('T')[0]},
@@ -281,10 +278,6 @@ export default {
                 this.bookingData.season = season.data;
 
                 this.formOk = true;
-
-                console.log("--------------------");
-                console.log(this.bookingData);
-
 
             } catch (error) {
                 this.errorMessage =
