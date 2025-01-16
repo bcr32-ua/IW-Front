@@ -48,6 +48,7 @@ export default {
         endDate: "",
         rooms: 1,
         people: 1,
+        beds: 1,
       },
       loading: true,
     };
@@ -69,10 +70,19 @@ export default {
         console.error("Error al obtener habitaciones:", error);
       }
       this.loading = false;
+      this.filter.startDate = params.start_date;
+      this.filter.endDate = params.end_date;
+      this.filter.rooms = params.rooms;
+      this.filter.people = params.people;
     },
     async reserveRoom(roomId){
+      // quiero darle formato 2025-01-08T00:00:00.000+00:00 a las fechas
+      this.filter.startDate = new Date(this.filter.startDate).toISOString().replace("Z", "+00:00");
+      this.filter.endDate = new Date(this.filter.endDate).toISOString().replace("Z", "+00:00");
+      console.log(this.filter);
+      
       this.$router.push({ name: 'ProcesoReserva', params: { roomId, startDate: this.filter.startDate, endDate: this.filter.endDate, 
-        rooms: this.filter.rooms, people: this.filter.people } });
+        beds: this.filter.beds, people: this.filter.people } });
     }
   },
   watch: {

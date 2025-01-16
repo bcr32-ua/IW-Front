@@ -204,6 +204,7 @@ export default {
     methods: {
         async detailsReserva() {
             try {
+                console.log("** ", this.bookingData);
                 this.errorMessage = '';
                 this.bookOk = false;
 
