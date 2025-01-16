@@ -53,6 +53,10 @@ export default {
       loading: true,
     };
   },
+  mounted() {
+    this.fetchRooms();
+    this.filter = { ...this.$route.query };
+  },
   methods: {
     async fetchRooms() {
       this.loading = true;
@@ -67,13 +71,14 @@ export default {
       }
       this.loading = false;
     },
+    async reserveRoom(roomId){
+      this.$router.push({ name: 'ProcesoReserva', params: { roomId, startDate: this.filter.startDate, endDate: this.filter.endDate, 
+        rooms: this.filter.rooms, people: this.filter.people } });
+    }
   },
   watch: {
     "$route.query": "fetchRooms",
-  },
-  mounted() {
-    this.fetchRooms();
-  },
+  }
 };
 </script>
 

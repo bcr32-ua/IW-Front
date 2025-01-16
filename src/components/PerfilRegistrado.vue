@@ -58,7 +58,7 @@ export default {
       }
     },
     goToHistory() {
-      this.$router.push("/history");
+      this.$router.push("/MisReservas");
     },
     goToEditProfile() {
       this.$router.push("/editarPerfil");
