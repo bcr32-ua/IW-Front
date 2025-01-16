@@ -99,8 +99,8 @@ export default {
 }
 
 .hab-image {
-  width: 100%;
-  height: auto;
+  width: 800px;
+  height: 532.67px;
   border-radius: 10px;
   margin: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

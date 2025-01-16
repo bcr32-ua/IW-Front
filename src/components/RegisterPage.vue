@@ -90,12 +90,11 @@ export default {
   methods: {
     async registerUser() {
       try {
-
+        const baseUrl = process.env.VUE_APP_URL_BACK;
         const response = await axios.post(
-            'http://localhost:8080/user/register',
+            `${baseUrl}/user/register`, 
             this.formData
         );
-
 
         const userId = response.data;
         localStorage.setItem('userId', userId);
