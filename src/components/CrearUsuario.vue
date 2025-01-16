@@ -36,9 +36,8 @@
                             <div class="form-group">
                                 <label for="type">Tipo de usuario</label>
                                 <select class="form-select" id="type" v-model="formData.type" required>
-                                    <option value="admin">Administrador</option>
-                                    <option value="recepcion">Recepcion</option>
-                                    <option value="user">Usuario</option>
+                                    <option value="emp">Empleado</option>
+                                    <option value="cli">Cliente</option>
                                 </select>
                             </div>
                         </div>
@@ -61,6 +60,8 @@
 <script>
 import router from '@/router';
 import NavBar from '../components/NavBar.vue';
+import axios from 'axios';
+
 export default {
   components: {
     NavBar,
@@ -78,13 +79,21 @@ export default {
             errorMessage: '',
         };
     },
+    mounted() {
+        if (!localStorage.getItem('userType')) {
+            this.$router.push('/Signin');
+        }
+        if (localStorage.getItem('userType') !== 'emp') {
+            this.$router.push('/');
+        }
+    },
     methods: {
         async createUser() {
             try {
-                /*const response = await axios.post('http://localhost:3000/clientes', this.formData);
-                console.log(response.data);*/
-                console.log('Usuario añadido', this.formData);
-                router.back();
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                await axios.post(baseUrl+"/user", this.formData);
+                
+                router.back();  
 
 
             } catch (error) {

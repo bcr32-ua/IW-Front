@@ -6,28 +6,24 @@
 
             <div class="card text-bg-dark mt-4 mb-4 px-3">
 
-                <h2 class="text-center mt-2">Crear temporada</h2>
-                <form @submit.prevent="createTemporada">
+                <h2 class="text-center mt-2">Crear Servicio</h2>
+                <form @submit.prevent="createServicio">
                     <div class="row">
                         <div class="col">
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label for="type">Tipo</label>
-                                    <input type="text" class="form-control" id="type" v-model="formData.type" required>
+                                    <label for="name">Nombre</label>
+                                    <input type="text" class="form-control" id="name" v-model="formData.name" required>
                                 </div>
                                 <div class="col">
-                                    <label for="multiplier">Multiplicador</label>
-                                    <input type="number" step="0.01" class="form-control" id="multiplier" v-model="formData.multiplier" required>
+                                    <label for="price">Precio</label>
+                                    <input type="number"  step="0.01" class="form-control" id="price" v-model="formData.price" required>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label for="season_start">Fecha inicio</label>
-                                    <input type="date" class="form-control" id="season_start" v-model="formData.season_start" required>
-                                </div>
-                                <div class="col">
-                                    <label for="season_end">Fecha fin</label>
-                                    <input type="date" class="form-control" id="season_end" v-model="formData.season_end" required>
+                                    <label for="description">Descripción</label>
+                                    <textarea class="form-control" id="description" v-model="formData.description" required></textarea>
                                 </div>
                             </div>
                             
@@ -41,8 +37,8 @@
                 
             </div>
             <div v-if="errorMessage" class="alert alert-danger" role="alert">
-                            {{ errorMessage}}
-                        </div>
+                {{ errorMessage}}
+            </div>
         
         </div>    
     </div>
@@ -60,10 +56,9 @@ export default {
     data() {
         return {
             formData: {
-                type: '',
-                season_start: '',
-                season_end: '',
-                multiplier: ''
+                name: '',
+                description: '',
+                price: '',
             },
             errorMessage: '',
         };
@@ -77,11 +72,11 @@ export default {
         }
     },
     methods: {
-        async createTemporada() {
+        async createServicio() {
             try {
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
-                await axios.post(baseUrl+"/season", this.formData);
+                await axios.post(baseUrl+"/service", this.formData);
                 
                 router.back();  
 

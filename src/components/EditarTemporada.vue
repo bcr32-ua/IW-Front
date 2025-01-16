@@ -6,7 +6,7 @@
 
             <div class="card text-bg-dark mt-4 mb-4 px-3">
 
-                <h2 class="text-center mt-2">Crear temporada</h2>
+                <h2 class="text-center mt-2">Editar temporada</h2>
                 <form @submit.prevent="createTemporada">
                     <div class="row">
                         <div class="col">
@@ -60,6 +60,7 @@ export default {
     data() {
         return {
             formData: {
+                id: '',
                 type: '',
                 season_start: '',
                 season_end: '',
@@ -75,11 +76,25 @@ export default {
         if (localStorage.getItem('userType') !== 'emp') {
             this.$router.push('/');
         }
+        this.getTemporadaData();
     },
     methods: {
+        async getTemporadaData() {
+            try {
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                const response = await axios.get(baseUrl+"/season/"+this.$route.params.id);
+                this.formData = response.data;
+
+                this.formData.season_start = this.formData.season_start.split('T')[0];
+                this.formData.season_end = this.formData.season_end.split('T')[0];
+
+            } catch (error) {
+                this.errorMessage =
+                    error.response?.data || 'An error occurred. Please try again.';
+            }
+        },
         async createTemporada() {
             try {
-                
                 const baseUrl = process.env.VUE_APP_URL_BACK;
                 await axios.post(baseUrl+"/season", this.formData);
                 
@@ -94,3 +109,4 @@ export default {
     },
 };
 </script>
+

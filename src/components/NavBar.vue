@@ -6,7 +6,7 @@
       <li><a href="/habitaciones">Habitaciones</a></li>
       <li><a href="/instalaciones">Instalaciones</a></li>
       <li><a href="#">Temporadas</a></li>
-      <li><a href="#">Contáctanos</a></li>
+      <li><a href="/contact-page">Contáctanos</a></li>
     </ul>
     <div class="search-user">
       <input type="text" placeholder="Buscar..." class="search-bar" />
@@ -15,6 +15,9 @@
         <span @click="toggleDropdown" class="user-icon">👤</span>
 
         <div v-if="showDropdown" class="dropdown-menu">
+          <template v-if="isEmp">
+            <router-link to="/gestionClientes" class="dropdown-item">Administración</router-link>
+          </template>
           <template v-if="isLoggedIn">
             <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
             <router-link to="/MisReservas" class="dropdown-item">Mis Reservas</router-link>
@@ -40,6 +43,7 @@ export default {
       showDropdown: false,
       isLoggedIn: !!localStorage.getItem('userId'),
       userType: localStorage.getItem('userType') || null,
+      isEmp: localStorage.getItem('userType') === 'emp',
     };
   },
   methods: {
@@ -60,6 +64,7 @@ export default {
       localStorage.removeItem('userType');
       this.isLoggedIn = false;
       this.userType = null;
+      this.isEmp = false;
       this.showDropdown = false;
       if (this.$route.path !== '/') {
         this.$router.push('/');

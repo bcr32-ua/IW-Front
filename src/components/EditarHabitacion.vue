@@ -6,8 +6,8 @@
 
             <div class="card text-bg-dark mt-4 mb-4 px-3">
 
-                <h2 class="text-center mt-2">Crear habitacion</h2>
-                <form @submit.prevent="createHabitacion">
+                <h2 class="text-center mt-2">Editar habitacion</h2>
+                <form @submit.prevent="editHabitacion">
                     <div class="row">
                         <div class="col">
                             <div class="row mt-2">
@@ -89,7 +89,7 @@ export default {
                 type: '',
                 base_price: '',
                 description: '',
-                active: false,
+                active: true,
             },
             errorMessage: '',
         };
@@ -101,9 +101,21 @@ export default {
         if (localStorage.getItem('userType') !== 'emp') {
             this.$router.push('/');
         }
+        this.getRoom();
     },
     methods: {
-        async createHabitacion() {
+        async getRoom(){
+            try {
+                const baseUrl = process.env.VUE_APP_URL_BACK;
+                const response = await axios.get(baseUrl+"/room/"+this.$route.params.id);
+                this.formData = response.data;
+
+            } catch (error) {
+                this.errorMessage =
+                    error.response?.data || 'An error occurred. Please try again.';
+            }
+        },
+        async editHabitacion() {
             try {
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
