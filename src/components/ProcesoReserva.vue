@@ -100,6 +100,7 @@
 <script>
 import NavBar from '../components/NavBar.vue';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   components: {
@@ -228,19 +229,30 @@ export default {
         async confirmReserva() {
             try {
                 var booking_str = JSON.stringify(this.bookingData);
+                var bookingData = JSON.parse(booking_str);
+                bookingData.start_date = bookingData.start_date.replace(" ", "+");
+                bookingData.end_date = bookingData.end_date.replace(" ", "+");
+                bookingData.season.season_start = bookingData.season.season_start.replace(" ", "+");
+                bookingData.season.season_end = bookingData.season.season_end.replace(" ", "+");
+                console.log(bookingData);
 
-                await axios.post(`https://green-sys.es/sales`, {
+                console.log(this.bookingData.user.email+'-'+this.bookingData.room.code+'-'+this.bookingData.start_date+'-'+this.bookingData.end_date,                );
+                uuidv4();
+                const tpv = await axios.post(`https://sandbox.green-sys.es/sales`, {
                     amount: this.bookingData.total_price,
                     description: 'Reserva de habitación',
                     currency: 'EUR',
-                    reference: this.bookingData.user.email+'-'+this.bookingData.room.code+'-'+this.bookingData.start_date+'-'+this.bookingData.end_date,
+                    reference: uuidv4(),
                     url_callback: 'https://frolicking-pavlova-d115a9.netlify.app/ReservaCompletada?booking='+booking_str,
                 }, {
                     headers: {
                         'x-api-key': 'sk_f4xhc5e7vim5znmvvc'
                     }
                 });
+
+                const tpv_url = tpv.data.url
                 
+                window.location.href = tpv_url;
                 
 
 

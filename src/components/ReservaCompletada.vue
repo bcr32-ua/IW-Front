@@ -40,8 +40,22 @@
     async mounted() {
 
         var bookingData = JSON.parse(this.$route.query.booking);
+
+
+        bookingData.start_date = bookingData.start_date.replace(" ", "+");
+        bookingData.end_date = bookingData.end_date.replace(" ", "+");
+        bookingData.season.season_start = bookingData.season.season_start.replace(" ", "+");
+        bookingData.season.season_end = bookingData.season.season_end.replace(" ", "+");
+
+        /*bookingData.start_date = new Date(bookingData.start_date.split('T')[0]).toISOString();
+        bookingData.end_date = new Date(bookingData.end_date.split('T')[0]).toISOString();
+        bookingData.season.season_start = new Date(bookingData.season.season_start.split('T')[0]).toISOString();
+        bookingData.season.season_end = new Date(bookingData.season.season_end.split('T')[0]).toISOString();
+
+        bookingData.start_date = "aaaaaaaaaaa"*/
         console.log(bookingData);
-        const baseUrl = process.env.VUE_APP_URL_BACK;                
+        const baseUrl = process.env.VUE_APP_URL_BACK;      
+          
         await axios.post(baseUrl+"/booking", bookingData);
     },
   };

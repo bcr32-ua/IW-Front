@@ -79,8 +79,8 @@
       reserveRoom(roomId) {
         //this.$router.push({ name: "ConfirmarReserva", query: { roomId } });
         // fechaInicio 12/12/2025, fechaFin 15/12/2025, roomId 3, rooms 1, people 2
-        this.filter.startDate = "2025-12-12";
-        this.filter.endDate = "2025-12-15";
+        this.filter.startDate = "2025-12-12T00:00:00.000+00:00";
+        this.filter.endDate = "2025-12-15T00:00:00.000+00:00";
         roomId = 4;
         this.filter.rooms = 1;
         this.filter.people = 2;
