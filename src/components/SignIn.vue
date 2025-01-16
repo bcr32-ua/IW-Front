@@ -63,11 +63,9 @@ export default {
       try {
         const baseUrl = process.env.VUE_APP_URL_BACK;
         const response = await axios.post(`${baseUrl}/user/login`, this.formData);
-
         const { id, type } = response.data;
         localStorage.setItem('userId', id);
         localStorage.setItem('userType', type);
-
         this.$router.push('/');
       } catch (error) {
         this.errorMessage =

@@ -26,9 +26,10 @@ import EditarReserva from '../components/EditarReserva.vue';
 import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
 import MisReservas from '@/components/MisReservas.vue';
 import ContactPage from '@/components/ContactPage.vue';
-import seasonsPage from '@/components/seasonsPage.vue';
 import ProcesoReserva from '../components/ProcesoReserva.vue';
 import ReservaCompletada from '../components/ReservaCompletada.vue';
+import seasonsPage from '@/components/seasonsPage.vue';
+import PaginaNoEncontrada from '../components/PaginaNoEncontrada.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -60,8 +61,10 @@ export default new Router({
         { path: '/filtroHabitaciones', component: FiltroHabitaciones},
         { path: '/MisReservas', component: MisReservas},
         { path: '/contact-page', component: ContactPage},
-        { path: '/seasons', component: seasonsPage},
         { path: '/procesoReserva', name: 'ProcesoReserva', component: ProcesoReserva},
-        { path: '/reservaCompletada', component: ReservaCompletada }
+        { path: '/reservaCompletada', component: ReservaCompletada },
+        { path: '/seasons', component: seasonsPage},
+        { path: "/:catchAll(.*)", name: "NotFound", component: PaginaNoEncontrada },
+
     ],
 });

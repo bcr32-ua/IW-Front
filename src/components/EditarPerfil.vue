@@ -37,11 +37,11 @@
                 />
               </div>
               <div class="form-group">
-                <label for="surname">Apellido</label>
+                <label for="lastname">Apellido</label>
                 <input
                   type="text"
-                  id="surname"
-                  v-model="formData.surname"
+                  id="lastname"
+                  v-model="formData.lastname"
                   placeholder="Tu apellido"
                   required
                 />
@@ -54,15 +54,6 @@
                   v-model="formData.phone"
                   placeholder="123-456-789"
                   required
-                />
-              </div>
-              <div class="form-group">
-                <label for="address">Dirección</label>
-                <input
-                  type="text"
-                  id="address"
-                  v-model="formData.address"
-                  placeholder="Tu dirección"
                 />
               </div>
               <button type="submit" class="save-button">Guardar cambios</button>
@@ -93,15 +84,17 @@
           email: "",
           password: "",
           name: "",
-          surname: "",
+          lastname: "",
           phone: "",
-          address: "",
         },
         errorMessage: "",
         successMessage: "",
       };
     },
     created() {
+      if (!localStorage.getItem('userType')) {
+          this.$router.push('/Signin');
+      }
       this.fetchUserData();
     },
     methods: {
@@ -110,6 +103,7 @@
           const baseUrl = process.env.VUE_APP_URL_BACK;
           const userId = localStorage.getItem("userId");
           const response = await axios.get(`${baseUrl}/user/${userId}`);
+          console.log(response.data);
           this.formData = response.data;
         } catch (error) {
           this.errorMessage =
