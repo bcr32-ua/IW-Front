@@ -1,88 +1,81 @@
 <template>
-    <div class="filtered-rooms-page">
-      <NavBar />
-  
-        <div class="background">
-            <div class="content">
-                <RoomSearch />
-            </div>
-            <div class="filtered-rooms">                    
-                <div v-if="rooms.length === 0" class="no-rooms">
-                    <p>No se encontraron habitaciones para los criterios seleccionados.</p>
-                </div>
-
-                <div v-else class="room-list">
-                    <div v-for="room in rooms" :key="room.id" class="room-card">
-                        <h2>Habitación {{ room.code }}</h2>
-                        <div class="room-info">
-                            <img src="https://www.myboutiquehotel.com/photos/110778/grand-prince-hotel-takanawa-hanakohro-tokyo-002-49118-1110x700.jpg" alt="hab" class="room-image"/>
-                            <div class="room-details">
-                                <p><strong>Personas:</strong> {{ room.people }}</p>
-                                <p><strong>Piso:</strong> {{ room.floor }}</p>
-                                <p><strong>Tipo:</strong> {{ room.type }}</p>
-                                <p><strong>Precio base:</strong> ${{ room.base_price.toFixed(2) }}</p>
-                                <p>{{ room.description }}</p>
-                            </div>
-                        </div>
-                        <button @click="reserveRoom(room.id)" class="reserve-button">
-                            Reservar
-                            </button>
-                    </div>
+  <div class="filtered-rooms-page">
+    <NavBar />
+    <div class="background">
+      <div class="content">
+        <RoomSearch />
+      </div>
+      <div class="filtered-rooms">                    
+        <div v-if="loading">Cargando habitaciones...</div>
+        <div v-else-if="rooms.length === 0">No se encontraron habitaciones.</div>
+        <div v-else class="room-list">
+          <div v-for="room in rooms" :key="room.id" class="room-card">
+            <h2>Habitación {{ room.code }}</h2>
+            <div class="room-info">
+                <img src="https://www.myboutiquehotel.com/photos/110778/grand-prince-hotel-takanawa-hanakohro-tokyo-002-49118-1110x700.jpg" alt="hab" class="room-image"/>
+                <div class="room-details">
+                    <p><strong>Personas:</strong> {{ room.people }}</p>
+                    <p><strong>Piso:</strong> {{ room.floor }}</p>
+                    <p><strong>Tipo:</strong> {{ room.type }}</p>
+                    <p><strong>Precio base:</strong> ${{ room.base_price.toFixed(2) }}</p>
+                    <p>{{ room.description }}</p>
                 </div>
             </div>
+            <button @click="reserveRoom(room.id)" class="reserve-button">
+                Reservar
+                </button>
+          </div>
         </div>
+      </div>
     </div>
-  </template>
-  
-  <script>
-  import NavBar from "../components/NavBar.vue";
-  import RoomSearch from '../components/RoomSearch.vue';
-  import axios from "axios";
-  
-  export default {
-    components: {
-      NavBar,
-      RoomSearch,
-    },
-    data() {
-      return {
-        rooms: [], 
-        filter: {
-          startDate: "",
-          endDate: "",
-          rooms: 1,
-          people: 1,
-        },
-      };
-    },
-    mounted() {
-      const query = this.$route.query;
-      this.filter.startDate = query.startDate || "";
-      this.filter.endDate = query.endDate || "";
-      this.filter.rooms = query.rooms || 1;
-      this.filter.people = query.people || 1;
-  
-      this.fetchFilteredRooms();
-    },
-    methods: {
-      async fetchFilteredRooms() {
-        try {
-          const baseUrl = process.env.VUE_APP_URL_BACK;
-          const response = await axios.get(`${baseUrl}/room`, {
-            params: this.filter,
-          });
-          this.rooms = response.data;
-        } catch (error) {
-          console.error("Error al obtener las habitaciones:", error);
-        }
+  </div>
+</template>
+
+<script>
+import NavBar from "../components/NavBar.vue";
+import RoomSearch from '../components/RoomSearch.vue';
+import axios from "axios";
+export default {
+  components: {
+    NavBar,
+    RoomSearch,
+  },
+  data() {
+    return {
+      rooms: [],
+      filter: {
+        startDate: "",
+        endDate: "",
+        rooms: 1,
+        people: 1,
       },
-      reserveRoom(roomId) {
-        this.$router.push({ name: "ConfirmarReserva", query: { roomId } });
-      },
+      loading: true,
+    };
+  },
+  methods: {
+    async fetchRooms() {
+      this.loading = true;
+      const params = { ...this.$route.query };
+      if (!params.start_date || params.start_date === "0") delete params.start_date;
+      if (!params.end_date || params.end_date === "0") delete params.end_date;
+      try {
+        const response = await axios.get("https://iw-deployment-latest.onrender.com/room/available", { params });
+        this.rooms = response.data;
+      } catch (error) {
+        console.error("Error al obtener habitaciones:", error);
+      }
+      this.loading = false;
     },
-  };
-  </script>
-  
+  },
+  watch: {
+    "$route.query": "fetchRooms",
+  },
+  mounted() {
+    this.fetchRooms();
+  },
+};
+</script>
+
   <style scoped>
   .filtered-rooms-page {
     min-height: 100vh;
