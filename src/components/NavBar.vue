@@ -5,7 +5,7 @@
       <li><a href="#">Nuestro Hotel</a></li>
       <li><a href="/habitaciones">Habitaciones</a></li>
       <li><a href="/instalaciones">Instalaciones</a></li>
-      <li><a href="#">Temporadas</a></li>
+      <li><a href="/seasons">Temporadas</a></li>
       <li><a href="/contact-page">Contáctanos</a></li>
     </ul>
     <div class="search-user">
