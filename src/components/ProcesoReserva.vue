@@ -235,6 +235,10 @@ export default {
                     currency: 'EUR',
                     reference: this.bookingData.user.email+'-'+this.bookingData.room.code+'-'+this.bookingData.start_date+'-'+this.bookingData.end_date,
                     url_callback: 'https://frolicking-pavlova-d115a9.netlify.app/ReservaCompletada?booking='+booking_str,
+                }, {
+                    headers: {
+                        'x-api-key': 'sk_f4xhc5e7vim5znmvvc'
+                    }
                 });
                 
                 
