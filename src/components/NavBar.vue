@@ -6,7 +6,7 @@
       <li><a href="/habitaciones">Habitaciones</a></li>
       <li><a href="/instalaciones">Instalaciones</a></li>
       <li><a href="#">Temporadas</a></li>
-      <li><a href="#">Contáctanos</a></li>
+      <li><a href="/contact-page">Contáctanos</a></li>
     </ul>
     <div class="search-user">
       <input type="text" placeholder="Buscar..." class="search-bar" />
@@ -43,8 +43,11 @@ export default {
       window.location.href = '/';
     },
     toggleDropdown() {
+      console.log('Before Toggle:', this.showDropdown);
       this.showDropdown = !this.showDropdown;
+      console.log('After Toggle:', this.showDropdown);
     },
+
     handleOutsideClick(event) {
       const dropdown = this.$el.querySelector('.user-icon-wrapper');
       if (dropdown && !dropdown.contains(event.target)) {
@@ -55,8 +58,11 @@ export default {
       localStorage.removeItem('userId');
       this.isLoggedIn = false;
       this.showDropdown = false;
-      this.$router.push('/');
-    },
+      if (this.$route.path !== '/') {
+        this.$router.push('/');
+      }
+    }
+
   },
   mounted() {
     document.addEventListener('click', this.handleOutsideClick);
@@ -131,6 +137,7 @@ export default {
 }
 
 .dropdown-menu {
+  display: block !important;
   position: absolute;
   top: 30px;
   right: 0;

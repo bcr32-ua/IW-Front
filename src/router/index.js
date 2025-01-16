@@ -23,7 +23,8 @@ import EditarServicio from '../components/EditarServicio.vue';
 import GestionReservas from '../components/GestionReservas.vue';
 import CrearReserva from '../components/CrearReserva.vue';
 import EditarReserva from '../components/EditarReserva.vue';
-
+import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
+import ContactPage from '@/components/ContactPage.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -44,14 +45,16 @@ export default new Router({
         { path: '/gestionTemporadas', component: GestionTemporadas },
         { path: '/temporadas/editar/:id', component: EditarTemporada },
         { path: '/nuevaTemporada', component: CrearTemporada },
-        { path: '/perfilRegistrado', component: PerfilRegistrado},
-        { path: '/editarPerfil', component: EditarPerfil}, 
         { path: '/gestionServicios', component: GestionServicios },
         { path: '/nuevoServicio', component: CrearServicio },
         { path: '/servicios/editar/:id', component: EditarServicio },
         { path: '/gestionReservas', component: GestionReservas },
-        {  path: '/nuevaReserva', component: CrearReserva },
-        {  path: '/reservas/editar/:id', component: EditarReserva },
-
+        { path: '/nuevaReserva', component: CrearReserva },
+        { path: '/reservas/editar/:id', component: EditarReserva },
+        { path: '/perfil-registrado', component: PerfilRegistrado},
+        { path: '/editarPerfil', component: EditarPerfil},
+        { path: '/filtroHabitaciones', component: FiltroHabitaciones},
+        { path: '/contact-page', component: ContactPage},
+        
     ],
 });

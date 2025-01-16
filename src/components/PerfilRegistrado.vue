@@ -61,7 +61,7 @@ export default {
       this.$router.push("/history");
     },
     goToEditProfile() {
-      this.$router.push("/edit-profile");
+      this.$router.push("/editarPerfil");
     },
   },
   mounted() {

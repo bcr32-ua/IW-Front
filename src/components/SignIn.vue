@@ -63,7 +63,7 @@ export default {
       try {
         const baseUrl = process.env.VUE_APP_URL_BACK;
         const response = await axios.post(
-            `${baseUrl}/user/login`, 
+            `${baseUrl}/user/login`, // Concatenando la ruta al baseUrl
             this.formData
         );
 
@@ -142,4 +142,6 @@ export default {
   margin-top: 10px;
   color: #dc3545;
 }
+
+
 </style>
