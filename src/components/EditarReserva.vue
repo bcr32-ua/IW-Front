@@ -273,10 +273,8 @@ export default {
 
             if(this.people === 1) {
                 this.beds = 1;
-            } else if(this.people === 2) {
+            } else{
                 this.beds = 2;
-            } else {
-                this.beds = 3;
             }
 
 
