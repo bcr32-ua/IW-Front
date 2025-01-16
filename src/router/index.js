@@ -24,9 +24,11 @@ import GestionReservas from '../components/GestionReservas.vue';
 import CrearReserva from '../components/CrearReserva.vue';
 import EditarReserva from '../components/EditarReserva.vue';
 import FiltroHabitaciones from '@/components/FiltroHabitaciones.vue';
+import MisReservas from '@/components/MisReservas.vue';
 import ContactPage from '@/components/ContactPage.vue';
 import ProcesoReserva from '../components/ProcesoReserva.vue';
 import ReservaCompletada from '../components/ReservaCompletada.vue';
+import seasonsPage from '@/components/seasonsPage.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -56,8 +58,10 @@ export default new Router({
         { path: '/perfil-registrado', component: PerfilRegistrado},
         { path: '/editarPerfil', component: EditarPerfil},
         { path: '/filtroHabitaciones', component: FiltroHabitaciones},
+        { path: '/MisReservas', component: MisReservas},
         { path: '/contact-page', component: ContactPage},
         { path: '/procesoReserva', name: 'ProcesoReserva', component: ProcesoReserva},
-        { path: '/reservaCompletada', component: ReservaCompletada }
+        { path: '/reservaCompletada', component: ReservaCompletada },
+        { path: '/seasons', component: seasonsPage},
     ],
 });

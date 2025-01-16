@@ -5,7 +5,7 @@
       <li><a href="#">Nuestro Hotel</a></li>
       <li><a href="/habitaciones">Habitaciones</a></li>
       <li><a href="/instalaciones">Instalaciones</a></li>
-      <li><a href="#">Temporadas</a></li>
+      <li><a href="/seasons">Temporadas</a></li>
       <li><a href="/contact-page">Contáctanos</a></li>
     </ul>
     <div class="search-user">
@@ -20,7 +20,7 @@
           </template>
           <template v-if="isLoggedIn">
             <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
-            <router-link to="#" class="dropdown-item">Mis Reservas</router-link>
+            <router-link to="/MisReservas" class="dropdown-item">Mis Reservas</router-link>
             <span class="dropdown-item" @click="logout">Cerrar sesión</span>
           </template>
           <template v-else>
@@ -39,6 +39,7 @@ export default {
     return {
       showDropdown: false,
       isLoggedIn: !!localStorage.getItem('userId'),
+      userType: localStorage.getItem('userType') || null,
       isEmp: localStorage.getItem('userType') === 'emp',
     };
   },
@@ -47,11 +48,8 @@ export default {
       window.location.href = '/';
     },
     toggleDropdown() {
-      console.log('Before Toggle:', this.showDropdown);
       this.showDropdown = !this.showDropdown;
-      console.log('After Toggle:', this.showDropdown);
     },
-
     handleOutsideClick(event) {
       const dropdown = this.$el.querySelector('.user-icon-wrapper');
       if (dropdown && !dropdown.contains(event.target)) {
@@ -62,13 +60,13 @@ export default {
       localStorage.removeItem('userId');
       localStorage.removeItem('userType');
       this.isLoggedIn = false;
+      this.userType = null;
       this.isEmp = false;
       this.showDropdown = false;
       if (this.$route.path !== '/') {
         this.$router.push('/');
       }
-    }
-
+    },
   },
   mounted() {
     document.addEventListener('click', this.handleOutsideClick);
@@ -76,6 +74,7 @@ export default {
   beforeDestroy() {
     document.removeEventListener('click', this.handleOutsideClick);
   },
+
 };
 </script>
 

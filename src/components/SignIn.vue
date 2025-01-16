@@ -62,11 +62,7 @@ export default {
     async loginUser() {
       try {
         const baseUrl = process.env.VUE_APP_URL_BACK;
-        const response = await axios.post(
-            `${baseUrl}/user/login`, // Concatenando la ruta al baseUrl
-            this.formData
-        );
-
+        const response = await axios.post(`${baseUrl}/user/login`, this.formData);
         const { id, type } = response.data;
         localStorage.setItem('userId', id);
         localStorage.setItem('userType', type);

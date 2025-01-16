@@ -3,7 +3,7 @@
     <NavBar />
     <div class="background">
       <div class="content">
-        <RoomSearch />
+        <RoomSearch :onSearch="handleSearch" />
       </div>
     </div>
   </div>
@@ -17,6 +17,13 @@ export default {
   components: {
     NavBar,
     RoomSearch,
+  },
+  methods: {
+    handleSearch(filters) {
+      // Lógica para manejar los filtros enviados desde RoomSearch
+      console.log("Filtros recibidos:", filters);
+      // Aquí puedes aplicar los filtros o realizar alguna acción
+    },
   },
 };
 </script>

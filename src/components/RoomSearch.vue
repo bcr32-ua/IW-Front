@@ -1,21 +1,41 @@
 <template>
   <div class="room-search">
-    <form>
+    <form @submit.prevent="searchRooms">
       <label>Desde...</label>
-      <input type="date" />
+      <input type="date" v-model="startDate" required/>
       <label>Hasta...</label>
-      <input type="date" />
-      <label>Habitaciones</label>
-      <input type="number" min="1" />
+      <input type="date" v-model="endDate" required/>
+      <label>Camas</label>
+      <input type="number" v-model.number="beds" min="0" required/>
       <label>Personas</label>
-      <input type="number" min="1" />
+      <input type="number" v-model.number="people" min="0" required/>
       <button type="submit">Buscar habitación</button>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      startDate: "",
+      endDate: "",
+      beds: 0,
+      people: 0,
+    };
+  },
+  methods: {
+    searchRooms() {
+      const queryParams = new URLSearchParams({
+        start_date: this.startDate || "0",
+        end_date: this.endDate || "0",
+        beds: this.beds || 0,
+        people: this.people || 0,
+      }).toString();
+      this.$router.push(`/filtroHabitaciones?${queryParams}`);
+    },
+  },
+};
 </script>
 
 <style scoped>
