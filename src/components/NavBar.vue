@@ -21,9 +21,6 @@
           <template v-if="isLoggedIn">
             <router-link to="/perfil-registrado" class="dropdown-item">Mi cuenta</router-link>
             <router-link to="/MisReservas" class="dropdown-item">Mis Reservas</router-link>
-            <template v-if="userType === 'emp'">
-              <router-link to="/gestionClientes" class="dropdown-item">Gestión</router-link>
-            </template>
             <span class="dropdown-item" @click="logout">Cerrar sesión</span>
           </template>
           <template v-else>
