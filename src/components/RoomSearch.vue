@@ -33,6 +33,14 @@ export default {
       people: 0,
     };
   },
+  mounted() {
+    const queryParams = new URLSearchParams(this.$route.query);
+
+    this.startDate = queryParams.get("start_date") || "";
+    this.endDate = queryParams.get("end_date") || "";
+    this.beds = queryParams.get("beds") ? parseInt(queryParams.get("beds")) : 0;
+    this.people = queryParams.get("people") ? parseInt(queryParams.get("people")) : 0;
+  },
   methods: {
     searchRooms() {
       const queryParams = new URLSearchParams({
