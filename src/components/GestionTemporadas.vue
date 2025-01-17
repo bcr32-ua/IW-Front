@@ -1,5 +1,5 @@
 <template class="container-fluid" >
-    <body style="background-image:url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGt5b3RvfGVufDB8fDB8fHww'); height: 100vh; background-size: cover;">
+    <body style="background-color: #BDB9B9;  min-height: 100vh;">
         <NavBar />
             <div>
                 <div class="container mt-4">
@@ -91,7 +91,7 @@ export default {
         this.$router.push(`/temporadas/editar/${id}`);
     },
     async deleteTemporada(id) {
-        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta habitación?');
+        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta temporada?');
         if (confirmation) {
             const baseUrl = process.env.VUE_APP_URL_BACK;
             await axios.delete(baseUrl+"/season/"+id, {

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: #BDB9B9;  min-height: 100vh;">
         <NavBar />
         <div class="container">
             
@@ -41,8 +41,8 @@
                 
             </div>
             <div v-if="errorMessage" class="alert alert-danger" role="alert">
-                            {{ errorMessage}}
-                        </div>
+                {{ errorMessage}}
+            </div>
         
         </div>    
     </div>
@@ -79,6 +79,12 @@ export default {
     methods: {
         async createTemporada() {
             try {
+                this.errorMessage = '';
+
+                if(this.formData.season_start > this.formData.season_end){
+                    this.errorMessage = 'La fecha de inicio no puede ser mayor a la fecha de fin';
+                    return;
+                }
                 
                 const baseUrl = process.env.VUE_APP_URL_BACK;
                 await axios.post(baseUrl+"/season", this.formData);

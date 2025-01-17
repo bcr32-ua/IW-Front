@@ -1,5 +1,5 @@
 <template class="container-fluid" >
-    <body style="background-image:url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGt5b3RvfGVufDB8fDB8fHww'); height: 100vh; background-size: cover;">
+    <body style="background-color: #BDB9B9;  min-height: 100vh;">
         <NavBar />
             <div>
                 <div class="container mt-4">
