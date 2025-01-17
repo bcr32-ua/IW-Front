@@ -264,38 +264,4 @@ export default {
   cursor: not-allowed;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Ensure it appears on top of other elements */
-}
-
-
-.modal-content {
-  background: white; /* Ensure visible background */
-  color: black; /* Black text for contrast */
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
-}
-
-.modal-buttons .btn {
-  width: 45%;
-}
-
 </style>
