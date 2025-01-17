@@ -48,8 +48,14 @@
         async saveBooking() {
         var bookingData = JSON.parse(this.$route.query.booking);
         console.log(bookingData);
+
+        bookingData.start_date = bookingData.start_date.replace(" ", "+");
+        bookingData.end_date = bookingData.end_date.replace(" ", "+");
+        bookingData.season.season_start = bookingData.season.season_start.replace(" ", "+");
+        bookingData.season.season_end = bookingData.season.season_end.replace(" ", "+");
+
+
         const baseUrl = process.env.VUE_APP_URL_BACK;      
-          
         await axios.post(baseUrl+"/booking", bookingData);
         }
     }
