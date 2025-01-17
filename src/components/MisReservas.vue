@@ -3,6 +3,25 @@
     <NavBar />
     <div class="background">
       <div class="content">
+        <div v-if="selectedBooking" class="modal-overlay">
+          <div class="modal-content">
+            <i class="bi bi-bell"></i>
+            <h3>Cancelar reserva</h3>
+            <p>
+              Cancelar una reserva la anulará totalmente. Si quiere cambiar algún dato,
+              contacte con nosotros. ¿Quiere continuar?
+            </p>
+            <div class="modal-buttons">
+              <button class="btn btn-secondary" @click="closeModal">Volver</button>
+              <button
+                  class="btn btn-danger"
+                  @click="cancelBooking"
+              >
+                Cancelar reserva
+              </button>
+            </div>
+          </div>
+        </div>
         <h1>Historial De Reservas</h1>
         <div class="reservas-table">
           <table>
@@ -11,6 +30,8 @@
               <th>Desde</th>
               <th>Hasta</th>
               <th>Precio</th>
+              <th>Estado</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -18,6 +39,16 @@
               <td>{{ formatDate(reserva.start_date) }}</td>
               <td>{{ formatDate(reserva.end_date) }}</td>
               <td>{{ reserva.total_price }}</td>
+              <td>{{ reserva.status }}</td>
+              <td>
+                <button
+                    v-if="reserva.status === 'Activa'"
+                    class="btn btn-danger"
+                    @click="showCancelModal(reserva)"
+                >
+                  Cancelar
+                </button>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -52,6 +83,7 @@ export default {
   },
   data() {
     return {
+      selectedBooking: null,
       reservas: [],
       currentPage: 1,
       itemsPerPage: 5,
@@ -83,20 +115,39 @@ export default {
         alert('Ha ocurrido un error obteniendo las reservas.');
       }
     },
-    cancelBooking(bookingId) {
-      const baseUrl = process.env.VUE_APP_URL_BACK;
 
-      axios
-          .delete(`${baseUrl}/booking/${bookingId}`)
-          .then(() => {
-            alert('Reserva cancelada');
-            this.fetchBookings();
-          })
-          .catch((error) => {
-            console.error('Error cancelando la reserva:', error.response || error);
-            alert('Error cancelando la reserva.');
-          });
+    showCancelModal(booking) {
+      this.selectedBooking = booking;
     },
+
+    closeModal() {
+      console.log("Modal closed");
+      this.selectedBooking = null;
+    },
+    async cancelBooking() {
+      try {
+        console.log("Cancelling booking:", this.selectedBooking);
+        const baseUrl = process.env.VUE_APP_URL_BACK;
+
+        await axios.put(`${baseUrl}/booking`, {
+          id: this.selectedBooking.id,        // Existing booking ID
+          user: this.selectedBooking.user,    // Include related user if required
+          room: this.selectedBooking.room,    // Include related room if required
+          season: this.selectedBooking.season, // Include season if required
+          start_date: this.selectedBooking.start_date,
+          end_date: this.selectedBooking.end_date,
+          total_price: this.selectedBooking.total_price,
+          notes: this.selectedBooking.notes,
+          status: "Cancelada",
+        });
+
+        this.selectedBooking.status = "Cancelada";
+        this.selectedBooking = null;
+      } catch (error) {
+        console.error("Error cancelling booking:", error.response || error);
+      }
+    },
+
     formatDate(dateString) {
       const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
       return new Date(dateString).toLocaleDateString(undefined, options);
@@ -155,17 +206,31 @@ export default {
 
 .reservas-table th,
 .reservas-table td {
-  border: 1px solid white;
-  padding: 10px;
-  text-align: center;
+  padding: 15px 10px; /* Add space for better readability */
+  text-align: left; /* Align text to the left */
 }
 
 .reservas-table th {
-  background-color: #444;
+  background-color: #3a3a3a; /* Darker header background */
+  color: white; /* White text for header */
+  font-weight: bold; /* Bold header text */
 }
 
-.cancel-button {
-  background-color: #cc0000;
+.reservas-table tbody tr {
+  background-color: #4a4a4a; /* Consistent gray row background */
+  color: white; /* White text for rows */
+}
+
+.reservas-table tbody tr:nth-child(odd) {
+  background-color: #5a5a5a; /* Slightly lighter gray for alternate rows */
+}
+
+.reservas-table tbody tr:hover {
+  background-color: #666666; /* Highlight on hover */
+}
+
+.reservas-table td button {
+  background-color: #cc0000; /* Red background for buttons */
   color: white;
   border: none;
   padding: 5px 10px;
@@ -173,9 +238,10 @@ export default {
   cursor: pointer;
 }
 
-.cancel-button:hover {
-  background-color: #ff3333;
+.reservas-table td button:hover {
+  background-color: #ff3333; /* Lighter red on hover */
 }
+
 
 .pagination {
   display: flex;
@@ -197,4 +263,39 @@ export default {
   background-color: #888;
   cursor: not-allowed;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+
+.modal-content {
+  background: white; /* Ensure visible background */
+  color: black; /* Black text for contrast */
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.modal-buttons .btn {
+  width: 45%;
+}
+
 </style>
