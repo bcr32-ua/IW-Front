@@ -22,8 +22,8 @@
                 </div>
             </div>
             <button @click="reserveRoom(room.id)" class="reserve-button">
-                Reservar
-                </button>
+              Reservar
+            </button>
           </div>
         </div>
       </div>
@@ -74,6 +74,8 @@ export default {
       this.filter.endDate = params.end_date;
       this.filter.rooms = params.rooms;
       this.filter.people = params.people;
+
+      this.rooms = this.rooms.filter(room => room.active);
     },
     async reserveRoom(roomId){
       this.filter.startDate = new Date(this.filter.startDate).toISOString().replace("Z", "+00:00");
