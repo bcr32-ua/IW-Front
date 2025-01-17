@@ -91,7 +91,7 @@ export default {
         this.$router.push(`/temporadas/editar/${id}`);
     },
     async deleteTemporada(id) {
-        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta habitación?');
+        const confirmation = confirm('¿Estás seguro de que quieres eliminar esta temporada?');
         if (confirmation) {
             const baseUrl = process.env.VUE_APP_URL_BACK;
             await axios.delete(baseUrl+"/season/"+id, {

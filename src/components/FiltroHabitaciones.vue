@@ -76,7 +76,6 @@ export default {
       this.filter.people = params.people;
     },
     async reserveRoom(roomId){
-      // quiero darle formato 2025-01-08T00:00:00.000+00:00 a las fechas
       this.filter.startDate = new Date(this.filter.startDate).toISOString().replace("Z", "+00:00");
       this.filter.endDate = new Date(this.filter.endDate).toISOString().replace("Z", "+00:00");
       console.log(this.filter);

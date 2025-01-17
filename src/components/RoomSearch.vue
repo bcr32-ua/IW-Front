@@ -20,6 +20,9 @@
       </select>
       <button class="mt-3" type="submit">Buscar habitación</button>
     </form>
+    <div v-if="msg_error" class="alert alert-danger mt-3" role="alert">
+      {{ msg_error }}
+    </div>
   </div>
 </template>
 
@@ -31,6 +34,7 @@ export default {
       endDate: "",
       beds: 0,
       people: 0,
+      msg_error: "",
     };
   },
   mounted() {
@@ -43,13 +47,20 @@ export default {
   },
   methods: {
     searchRooms() {
+
+      this.msg_error = "";
+      if (this.startDate && this.endDate && this.endDate < this.startDate) {
+        this.msg_error = "La fecha de salida no puede ser anterior a la fecha de entrada";
+        return;
+      }
+
       const queryParams = new URLSearchParams({
         start_date: this.startDate || "0",
         end_date: this.endDate || "0",
         beds: this.beds || 0,
         people: this.people || 0,
       }).toString();
-      this.$router.push(`/filtroHabitaciones?${queryParams}`);
+      this.$router.push(`/filtroHabitaciones?${queryParams}`).catch(() => {});
     },
   },
 };
@@ -62,6 +73,7 @@ export default {
   padding: 20px;
   border-radius: 10px;
   display: inline-block;
+  max-width: 300px;
 }
 form {
   display: flex;

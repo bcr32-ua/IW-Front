@@ -301,6 +301,11 @@ export default {
                 }
                 this.bookingData.user = user.data;
 
+                if (new Date(this.formData.start_date) > new Date(this.formData.end_date)) {
+                    this.errorMessage = 'La fecha de entrada no puede ser posterior a la de salida';
+                    return;
+                }
+
                 this.bookingData.start_date = this.formData.start_date;
                 this.bookingData.end_date = this.formData.end_date;
 
