@@ -68,6 +68,14 @@
             </button>
           </div>
         </div>
+        <div class="row mt-4">
+          <div class="col text-end">
+            ¿Quieres modificar tu reserva?
+          </div>
+          <div class="col">
+            <a href="/contact-page" class="btn btn-secondary btn-sm">Contacta con nosotros</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
