@@ -1,6 +1,7 @@
 <template>
-    <div class="editar-user-page">
+    <div class="editar-user-page" style="background-color: #BDB9B9;  min-height: 100vh;">
         <NavBar />
+    
         <div class="container">
             
 
