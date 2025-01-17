@@ -155,17 +155,31 @@ export default {
 
 .reservas-table th,
 .reservas-table td {
-  border: 1px solid white;
-  padding: 10px;
-  text-align: center;
+  padding: 15px 10px; /* Add space for better readability */
+  text-align: left; /* Align text to the left */
 }
 
 .reservas-table th {
-  background-color: #444;
+  background-color: #3a3a3a; /* Darker header background */
+  color: white; /* White text for header */
+  font-weight: bold; /* Bold header text */
 }
 
-.cancel-button {
-  background-color: #cc0000;
+.reservas-table tbody tr {
+  background-color: #4a4a4a; /* Consistent gray row background */
+  color: white; /* White text for rows */
+}
+
+.reservas-table tbody tr:nth-child(odd) {
+  background-color: #5a5a5a; /* Slightly lighter gray for alternate rows */
+}
+
+.reservas-table tbody tr:hover {
+  background-color: #666666; /* Highlight on hover */
+}
+
+.reservas-table td button {
+  background-color: #cc0000; /* Red background for buttons */
   color: white;
   border: none;
   padding: 5px 10px;
@@ -173,9 +187,10 @@ export default {
   cursor: pointer;
 }
 
-.cancel-button:hover {
-  background-color: #ff3333;
+.reservas-table td button:hover {
+  background-color: #ff3333; /* Lighter red on hover */
 }
+
 
 .pagination {
   display: flex;
@@ -197,4 +212,5 @@ export default {
   background-color: #888;
   cursor: not-allowed;
 }
+
 </style>
