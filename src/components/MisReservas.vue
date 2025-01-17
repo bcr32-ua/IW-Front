@@ -30,7 +30,6 @@
               <th>Desde</th>
               <th>Hasta</th>
               <th>Precio</th>
-              <th>Estado</th>
               <th></th>
             </tr>
             </thead>
@@ -39,7 +38,6 @@
               <td>{{ formatDate(reserva.start_date) }}</td>
               <td>{{ formatDate(reserva.end_date) }}</td>
               <td>{{ reserva.total_price }}</td>
-              <td>{{ reserva.status }}</td>
               <td>
                 <button
                     v-if="reserva.status === 'Activa'"
