@@ -9,9 +9,7 @@
       <li><a href="/contact-page">Contáctanos</a></li>
     </ul>
     <div class="search-user">
-      <input type="text" placeholder="Buscar..." class="search-bar" />
-
-      <div class="user-icon-wrapper">
+            <div class="user-icon-wrapper">
         <span @click="toggleDropdown" class="user-icon">👤</span>
 
         <div v-if="showDropdown" class="dropdown-menu">
